@@ -33,6 +33,7 @@ const config = {
 	options: {
 		production: Boolean(argv['production']),
 		minifyHtml: Boolean(argv['minify-html']),
+		deployToGitHub: Boolean(argv['deploy-to-github']),
 		verbose: Boolean(argv['verbose'])
 	},
 	paths: {
@@ -65,7 +66,10 @@ gulp.task('clean', cb => {
 gulp.task('build:html', () => {
 	gulp.src(path.join(config.paths.src.templates, 'pages/*.pug'))
 		.pipe(pug({
-			pretty: !config.options['minify-html']
+			pretty: !config.options['minify-html'],
+			locals: {
+				deployToGitHubPages: config.options['deployToGitHub']
+			}
 		}))
 		.pipe(gulp.dest(config.paths.dist.html));
 });

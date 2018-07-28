@@ -4,6 +4,11 @@ html(
     dir="ltr"
 )
     head
+        if deployToGitHubPages
+            - var baseUrl = "https://igorlesnevskiy.github.io/kdx/";
+        else
+            - var baseUrl = "/";
+
         meta(charset="utf-8")
         meta(
             name="viewport",
@@ -18,17 +23,17 @@ html(
             )
 
         //- https://realfavicongenerator.net/
-        link(rel="apple-touch-icon", sizes="180x180", href="./images/favicon/apple-touch-icon.png")
-        link(rel="icon", type="image/png", sizes="32x32", href="./images/favicon/favicon-32x32.png")
-        link(rel="icon", type="image/png", sizes="194x194", href="./images/favicon/favicon-194x194.png")
-        link(rel="icon", type="image/png", sizes="192x192", href="./images/favicon/android-chrome-192x192.png")
-        link(rel="icon", type="image/png", sizes="16x16", href="./images/favicon/favicon-16x16.png")
-        link(rel="manifest", href="./images/favicon/site.webmanifest")
-        link(rel="mask-icon", href="./images/favicon/safari-pinned-tab.svg", color="#5bbad5")
-        link(rel="shortcut icon", href="./images/favicon/favicon.ico")
+        link(rel="apple-touch-icon", sizes="180x180", href= baseUrl + "images/favicon/apple-touch-icon.png")
+        link(rel="icon", type="image/png", sizes="32x32", href= baseUrl + "images/favicon/favicon-32x32.png")
+        link(rel="icon", type="image/png", sizes="194x194", href= baseUrl + "images/favicon/favicon-194x194.png")
+        link(rel="icon", type="image/png", sizes="192x192", href= baseUrl + "images/favicon/android-chrome-192x192.png")
+        link(rel="icon", type="image/png", sizes="16x16", href= baseUrl + "images/favicon/favicon-16x16.png")
+        link(rel="manifest", href= baseUrl + "images/favicon/site.webmanifest")
+        link(rel="mask-icon", href= baseUrl + "images/favicon/safari-pinned-tab.svg", color="#5bbad5")
+        link(rel="shortcut icon", href= baseUrl + "images/favicon/favicon.ico")
         meta(name="msapplication-TileColor", content="#ffffff")
-        meta(name="msapplication-TileImage", content="/images/favicon/mstile-144x144.png")
-        meta(name="msapplication-config", content="/images/favicon/browserconfig.xml")
+        meta(name="msapplication-TileImage", content=baseUrl + "images/images/favicon/mstile-144x144.png")
+        meta(name="msapplication-config", content=baseUrl + "images/images/favicon/browserconfig.xml")
         meta(name="theme-color", content="#ffffff")
 
         //- To run web application in full-screen -->
@@ -93,7 +98,7 @@ html(
         <![endif]-->
 
         <!--[if IE 8]>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/ie8/0.4.1/ie8.js"></script>
+        <script src="/cdnjs.cloudflare.com/ajax/libs/ie8/0.4.1/ie8.js"></script>
         <![endif]-->
 
         <!--[if IE]>
@@ -101,11 +106,11 @@ html(
         <![endif]-->
 
         block styles
-            link(rel='stylesheet', href='./css/vendor.css')
-            link(rel='stylesheet', href='./css/main.css')
+            link(rel='stylesheet', href= baseUrl + "css/vendor.css")
+            link(rel='stylesheet', href= baseUrl + "css/main.css")
         block scripts
-            script(src="./js/vendor.bundle.js")
-            script(src="./js/main.bundle.js")
+            script(src= baseUrl + "js/vendor.bundle.js")
+            script(src= baseUrl + "js/main.bundle.js")
     body
         div.l-page-wrapper
             div.l-page-wrapper__inner
