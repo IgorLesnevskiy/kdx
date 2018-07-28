@@ -1,9 +1,10 @@
 $icon_font_name:"webfont";
 
-$webfont-icon--social--fb: "\E001";
-$webfont-icon--social--ok: "\E002";
-$webfont-icon--social--twitter: "\E003";
-$webfont-icon--social--vk: "\E004";
+$webfont-icon--arrow--right: "\E001";
+$webfont-icon--social--fb: "\E002";
+$webfont-icon--social--ok: "\E003";
+$webfont-icon--social--twitter: "\E004";
+$webfont-icon--social--vk: "\E005";
 
 @mixin webfont-icon($icon-code, $after-or-before: 'before') {
 	&:#{$after-or-before} {
@@ -36,20 +37,24 @@ $webfont-icon--social--vk: "\E004";
 	-webkit-font-smoothing: antialiased;
 }
 
-.webfont-icon--social--fb:before {
+.webfont-icon--arrow--right:before {
 	content: '\E001';
 }
 
-.webfont-icon--social--ok:before {
+.webfont-icon--social--fb:before {
 	content: '\E002';
 }
 
-.webfont-icon--social--twitter:before {
+.webfont-icon--social--ok:before {
 	content: '\E003';
 }
 
-.webfont-icon--social--vk:before {
+.webfont-icon--social--twitter:before {
 	content: '\E004';
+}
+
+.webfont-icon--social--vk:before {
+	content: '\E005';
 }
 
 

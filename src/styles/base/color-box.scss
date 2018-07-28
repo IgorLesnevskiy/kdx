@@ -1,0 +1,16 @@
+/* Base: color-box.scss
+ * Всевозможные цветные боки и спецификаторы
+-------------------------------------------------- */
+
+.i-color-box {
+	$color-box--height: 20px;
+	$color-box--width: 20px;
+
+	background-color: #fff;
+	border: 1px solid $color--gainsboro;
+	width: $color-box--width;
+	height: $color-box--width;
+	border-radius: 50%;
+}
+
+/* /Base: color-box.scss */

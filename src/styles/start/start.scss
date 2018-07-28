@@ -33,7 +33,9 @@ body {
 	line-height: $base-line-height;
 }
 
-* {
+*,
+*:after,
+*:before {
 	box-sizing: border-box;
 }
 
@@ -67,8 +69,4 @@ img {
 	& > * {
 		min-height: 1px;
 	}
-}
-
-.a {
-	@extend .col-4;
 }

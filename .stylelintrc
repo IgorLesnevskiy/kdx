@@ -29,3 +29,5 @@ rules:
   - px
   - deg
   - ms
+  - vw
+  - vh

@@ -1,0 +1,83 @@
+/* Base: buttons
+ * Кнопки
+-------------------------------------------------- */
+.i-button {
+	$button--font-size: 14px;
+	$button--color: #fff;
+	$button--color-hover: #fff;
+	$button--color-active: #fff;
+	$button--bg-color: $color--cardinal;
+	$button--bg-color-hover: darken($color--cardinal, 5%);
+	$button--bg-color-active: darken($color--cardinal, 5%);
+
+	min-height: 42px;
+	padding: 0.5em 1em;
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+	text-decoration: none;
+	background-color: $button--bg-color;
+	color: $button--color;
+	border: none;
+	transition: background-color 0.2s linear;
+	border-radius: .37em;
+	font-size: 14px;
+	position: relative;
+	text-transform: uppercase;
+	font-weight: 500;
+	
+	&:hover {
+		background-color: $button--bg-color-hover;
+		color: $button--color-hover;
+		text-decoration: none;
+	}
+
+	&:active {
+		background-color: $button--bg-color-active;
+		color: $button--color-active;
+		text-decoration: none;
+		top: 2px;
+	}
+
+	.webfont-icon {
+		font-size: 0.75em;
+		margin: 0 0.6em;
+	}
+}
+
+.i-button--full-width {
+	width: 100%;
+}
+
+.i-button--size-small {
+	min-height: 30px;
+	padding: 0.3em 1em;
+}
+
+.i-button--ellipse {
+	$button--color: $color--bali-hai;
+	$button--color-hover: #fff;
+	$button--color-active: #fff;
+	$button--bg-color: transparent;
+	$button--bg-color-hover: $color--cinder;
+	$button--bg-color-active: $color--cinder;
+
+	border-radius: 15px;
+	border: none;
+	background-color: $button--bg-color;
+	color: $button--color;
+	text-transform: none;
+	font-weight: 300;
+
+	&:hover {
+		background-color: $button--bg-color-hover;
+		color: $button--color-hover;
+	}
+
+	&:active {
+		background-color: $button--bg-color-active;
+		color: $button--color-active;
+	}
+}
+
+/* /Base: buttons */

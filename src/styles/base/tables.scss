@@ -1,0 +1,83 @@
+/* Base: tables.scss
+ * Обычные и кастомные таблицы
+-------------------------------------------------- */
+.b-custom-table {
+	$custom-table--header-bg: $color--cardinal;
+	$custom-table--header-color: #fff;
+	$custom-table--body-bg: $color--azure;
+	$custom-table--body-color: $color--cinder;
+	$custom-table--font-size: 15px;
+
+	font-size: $custom-table--font-size;
+	display: table;
+	border-radius: 5px;
+	overflow: hidden;
+
+	&__row {
+		display: table-row;
+	}
+
+	&__cell {
+		display: table-cell;
+		padding: 13px 15px;
+		text-align: left;
+		vertical-align: top;
+	}
+
+	&__cell--title {
+		width: 48%;
+
+		.main-text {
+
+		}
+
+		.extra-text {
+			display: block;
+			color: $color--bali-hai;
+			font-size: 13px;
+		}
+	}
+
+	&__cell--action {
+		width: 15%;
+
+		.i-button {
+			margin-top: -5px;
+		}
+	}
+
+	&__header {
+		display: table-row-group;
+	}
+
+	&__header &__row {
+		background: $custom-table--header-bg;
+		color: $custom-table--header-color;
+		font-weight: 500;
+	}
+
+	&__body {
+		display: table-row-group;
+	}
+
+	&__body &__row {
+		background: $custom-table--body-bg;
+		color: $custom-table--body-color;
+		font-weight: 300;
+
+		&:not(:last-child) .b-custom-table__cell {
+			border-bottom: 1px solid $color--pattens-blue;
+
+		}
+	}
+
+	&__footer {
+		display: table-row-group;
+	}
+}
+
+.b-custom-table--full-width {
+	width: 100%;
+}
+
+/* /Base: tables.scss */

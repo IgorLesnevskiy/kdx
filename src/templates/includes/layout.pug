@@ -4,7 +4,7 @@ html(
     dir="ltr"
 )
     head
-        if deployToGitHubPages
+        if deploy
             - var baseUrl = "https://igorlesnevskiy.github.io/kdx/";
         else
             - var baseUrl = "/";
@@ -118,10 +118,17 @@ html(
                     div.l-page__header
                         block header
                             div.b-header
-                                div.b-header__inner Шапка сайта
-                    div.l-page__content.content-area
-                        block content
+                                div.b-header__inner
+                                    div.b-header__logo
+                                        a.b-header__logo-link(href=baseUrl)
+                                            img(src=baseUrl + "images/decor/logo.png" alt="Captain Quack logo")
+                    div.l-page__content
+                        block page-title
+                            div.l-page__title Заголовок страницы
+                        div.content-area
+                            block content
                     div.l-page__footer
                         block footer
                             div.b-footer
-                                div.b-footer__inner Футер сайта
+                                div.b-footer__inner
+                                    div.b-footer__copyright © 2015 CAPTAIN QUACK <br/>Десница тысячелетия и моллюск!

@@ -1,0 +1,35 @@
+/* Base: lists.scss
+ * Списки
+-------------------------------------------------- */
+
+.content-area {
+	//Нумерованный список
+	ol {
+		margin: 1em 0;
+		padding-left: 2em;
+		counter-reset: list-numbers;
+
+		& > li {
+			position: relative;
+			list-style: decimal;
+		}
+	}
+
+	//Маркерованный список
+	ul {
+		margin: 1em 0;
+		padding-left: 2em;
+
+		& > li {
+			position: relative;
+			margin: 0.5em 0;
+			list-style: circle;
+		}
+
+		ol {
+			counter-reset: list-numbers;
+		}
+	}
+}
+
+/* /Base: lists.scss */

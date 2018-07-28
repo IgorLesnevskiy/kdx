@@ -13,7 +13,7 @@ $viewport-layouts: (
 );
 
 $grid-columns: 12 !default;
-$grid-gutter-width: 30px !default;
+$grid-gutter-width: 10px !default;
 
 $half-gutter-width: $grid-gutter-width * 1;
 $gutter-compensation: -1 * $half-gutter-width;

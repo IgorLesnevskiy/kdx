@@ -3,20 +3,28 @@
 
 /* Start
 ---------------------------------------------------------------------------------- */
-@import "start/start.scss";
+@import "start/start";
 
 /* /Start */
 
 /* Base
 ---------------------------------------------------------------------------------- */
+@import "base/buttons";
+@import "base/color-box";
+@import "base/inputs";
+@import "base/tables";
+@import "base/headings";
+@import "base/lists";
+@import "base/typography";
 
 /* /Base */
 
 /* Project
 ---------------------------------------------------------------------------------- */
-@import "project/footer.scss";
-@import "project/header.scss";
-@import "project/page.scss";
+@import "project/footer";
+@import "project/header";
+@import "project/page";
+@import "project/form";
 
 /* /Project */
 

@@ -1,0 +1,56 @@
+/* Project: form.scss
+ * Формы
+-------------------------------------------------- */
+.b-form {
+	&__line {
+		margin-top: 30px;
+		margin-bottom: 30px;
+	}
+
+	&__field-wrapper {
+		position: relative;
+		width: 100%;
+	}
+
+	&__field-input {}
+
+	&__field-label {
+		color: $color--nobel;
+		top: -1.75em;
+		display: block;
+		transform: translateY(0);
+		position: absolute;
+		transition: .2s ease-out all;
+	}
+
+	&__field-wrapper--smart {
+		.b-form__field-label {
+			top: 50%;
+			transform: translateY(-50%);
+			left: 0.75em;
+		}
+
+		.b-form__field-input:focus + .b-form__field-label,
+		.b-form__field-input.is-fill + .b-form__field-label {
+			top: -1.75em;
+			transform: translateY(0);
+		}
+	}
+
+	&__field {
+
+	}
+
+	&__field--radio-group {
+		display: flex;
+		flex-wrap: wrap;
+		flex-shrink: 0;
+		flex-grow: 1;
+
+		.b-radio-button {
+			margin-right: 14px;
+		}
+	}
+}
+
+/* /Project: form.scss */
