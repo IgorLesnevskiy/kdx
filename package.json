@@ -1,0 +1,48 @@
+{
+  "scripts": {
+    "jslint": "eslint ./src/js ./gulpfile.js --fix",
+    "csslint": "stylelint src/styles/base src/styles/cosmetic src/styles/project src/styles/start/start.scss src/styles/main.scss --fix",
+    "precommit": "yarn jslint && yarn csslint",
+    "build": "gulp build",
+    "build:production": "gulp build:clean --production",
+    "server": "lite-server",
+    "watch": "gulp watch",
+    "deploy": "yarn build:production --minify-html && git subtree push --prefix dist origin gh-pages"
+  },
+  "dependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.5",
+    "babel-preset-env": "^1.7.0",
+    "bluebird": "^3.5.1",
+    "expose-loader": "^0.7.5",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^5.0.0",
+    "gulp-compass": "^2.1.0",
+    "gulp-iconfont": "^10.0.1",
+    "gulp-iconfont-css": "^2.1.0",
+    "gulp-if": "^2.0.2",
+    "gulp-imagemin": "^4.1.0",
+    "gulp-minify-css": "^1.2.4",
+    "gulp-pug": "^4.0.1",
+    "gulp-sass": "^4.0.1",
+    "gulp-sourcemaps": "^2.6.4",
+    "gulp-watch": "^5.0.0",
+    "imagemin-pngquant": "^6.0.0",
+    "jquery": "^3.3.1",
+    "path": "^0.12.7",
+    "rimraf": "^2.6.2",
+    "run-sequence": "^2.2.1",
+    "velocity-animate": "^1.5.1",
+    "webpack": "^4.16.1",
+    "webpack-stream": "^5.0.0",
+    "yargs": "^12.0.1"
+  },
+  "devDependencies": {
+    "eslint": "^5.2.0",
+    "husky": "^0.14.3",
+    "lite-server": "^2.4.0",
+    "stylelint": "^9.4.0",
+    "stylelint-scss": "^3.2.0",
+    "stylelint-config-recommended": "^2.1.0"
+  }
+}

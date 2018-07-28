@@ -1,0 +1,274 @@
+$breakpoint-tiny: 320px !default;
+$breakpoint-small: 480px !default;
+$breakpoint-mobile: 768px !default;
+$breakpoint-tablet: 1024px !default;
+$breakpoint-desktop: 1240px !default;
+
+$viewport-layouts: (
+		"default":(),
+		"lg":("max-width": $breakpoint-desktop),
+		"md":("max-width": $breakpoint-tablet),
+		"sm":("max-width": $breakpoint-mobile),
+		"xs":("max-width": $breakpoint-small),
+);
+
+$grid-columns: 12 !default;
+$grid-gutter-width: 30px !default;
+
+$half-gutter-width: $grid-gutter-width * 1;
+$gutter-compensation: -1 * $half-gutter-width;
+
+@mixin grid-row ($reverse:false) {
+	@include grid-row-direction($reverse);
+	box-sizing: border-box;
+	display: flex;
+	flex-grow: 0;
+	flex-shrink: 1;
+	flex-basis: auto;
+	flex-wrap: wrap;
+	margin-right: $gutter-compensation;
+	margin-left: $gutter-compensation;
+
+	html.feature-no-flexwrap & {
+		margin-left:-$grid-gutter-width;
+		list-style: none;
+		margin-bottom: 0;
+		@include pie-clearfix;
+	}
+}
+
+@mixin grid-row-direction ($reverse:false) {
+	@if ($reverse) {
+		flex-direction: row-reverse;
+	} @else {
+		flex-direction: row;
+	}
+}
+
+@mixin grid-row-alignment-horizontal ($alignment) {
+	$justify: inherit;
+
+	@if ($alignment == center) {
+		$justify: center;
+		text-align: center; //hack for ie
+	} @elseif ($alignment == end) {
+		$justify: flex-end;
+		text-align: right; //hack for ie
+	} @elseif ($alignment == start) {
+		$justify: flex-start;
+		text-align: left; //hack for ie
+	}
+
+	justify-content: $justify;
+	text-align: $alignment;
+}
+
+@mixin grid-row-alignment-vertical ($alignment) {
+	@if ($alignment == middle) {
+		align-items: center;
+	} @else if ($alignment == bottom) {
+		align-items: flex-end;
+	} @else {
+		align-items: flex-start;
+	}
+}
+
+@mixin grid-row-spacing ($spacing) {
+	justify-content: $spacing;
+}
+
+@mixin grid-column ($reverse:false) {
+	@include grid-column-direction($reverse);
+	display: flex;
+	flex-grow: 0;
+	flex-shrink: 1;
+	flex-basis: auto;
+	padding-right: $half-gutter-width;
+	padding-left: $half-gutter-width;
+
+	html.feature-no-flexwrap & {
+		display: block;
+		float: left;
+		width: 100%;
+		padding-left: $grid-gutter-width;
+		zoom: 1;
+	}
+}
+
+@mixin grid-column-direction ($reverse:false) {
+	@if ($reverse) {
+		flex-direction: column-reverse;
+	} @else {
+		flex-direction: column;
+	}
+}
+
+@mixin grid-column-span ($columns-to-span:12, $total-columns-in-row:12) {
+	@if ($columns-to-span == auto) {
+		flex-grow: 1;
+		flex-basis: 0;
+		max-width: 100%;
+
+	} @else {
+		$span-percentage: $columns-to-span / $total-columns-in-row;
+
+		flex-basis: $span-percentage * 100%;
+		max-width: $span-percentage * 100%;
+	}
+}
+
+@mixin grid-column-offset ($columns-to-offset, $total-columns-in-row:12) {
+	margin-left: ($columns-to-offset / $total-columns-in-row) * 100%;
+}
+
+@mixin grid-column-order ($position) {
+	@if ($position == last) {
+		$position: 9999;
+	} @else if ($position == first) {
+		$position: -9999;
+	}
+
+	order: $position;
+}
+
+.container-fluid {
+	margin-right: auto;
+	margin-left: auto;
+	padding-right: 2rem;
+	padding-left: 2rem;
+}
+
+.row {
+	@include grid-row;
+}
+
+.row.reverse {
+	@include grid-row-direction(true);
+}
+
+.col.reverse {
+	@include grid-column-direction($reverse:true);
+}
+
+@mixin example-viewport ($key) {
+	$keyCode: '-' + $key;
+
+	@if ($key == default) {
+		$keyCode: '';
+	}
+
+	.col#{$keyCode} {
+		$str: "&";
+		@for $i from 1 through $grid-columns {
+			$str: $str + "," & + "-" + $i + "," + & + "-offset-" + $i;
+		}
+
+		@at-root #{$str} {
+			@include grid-column;
+		}
+
+		& {
+			// no idea why the indenting no longer works for this and why I need & {}
+			@include grid-column-span(auto);
+		}
+
+		@for $i from 1 through $grid-columns {
+			&-#{$i} {
+				@include grid-column-span($i);
+			}
+
+			&-offset-#{$i} {
+				@include grid-column-offset($i);
+			}
+		}
+
+		&-hide {
+			display: none !important;
+		}
+
+		&-show {
+			display: block !important;
+		}
+
+		&--no-gutter {
+			padding-left: 0;
+			padding-right: 0;
+		}
+	}
+
+	.row#{$keyCode} {
+		&--no-gutter {
+			margin-left: 0;
+			margin-right: 0;
+		}
+	}
+
+	html.feature-no-flexwrap .row#{$keyCode} {
+		&--no-gutter {
+			margin-left: 0;
+			margin-right: 0;
+		}
+	}
+
+	html.feature-no-flexwrap .col#{$keyCode} {
+		&--no-gutter {
+			padding-left: 0;
+			padding-right: 0;
+		}
+	}
+
+	.start#{$keyCode} {
+		@include grid-row-alignment-horizontal(start);
+	}
+
+	.center#{$keyCode} {
+		@include grid-row-alignment-horizontal(center);
+	}
+
+	.end#{$keyCode} {
+		@include grid-row-alignment-horizontal(end);
+	}
+
+	.top#{$keyCode} {
+		@include grid-row-alignment-vertical(top);
+	}
+
+	.middle#{$keyCode} {
+		@include grid-row-alignment-vertical(middle);
+	}
+
+	.bottom#{$keyCode} {
+		@include grid-row-alignment-vertical(bottom);
+	}
+
+	.around#{$keyCode} {
+		@include grid-row-spacing(space-around);
+	}
+
+	.between#{$keyCode} {
+		@include grid-row-spacing(space-between);
+	}
+
+	.first#{$keyCode} {
+		@include grid-column-order(first);
+	}
+
+	.last#{$keyCode} {
+		@include grid-column-order(last);
+	}
+}
+
+@each $key, $value in $viewport-layouts {
+	@if ($key == default) {
+		@include example-viewport($key);
+	} @else {
+		$max-width: map-get($value, "max-width");
+		@media screen and (max-width: $max-width) {
+			@include example-viewport($key);
+			.container {
+				width: $max-width;
+			}
+		}
+	}
+}
+

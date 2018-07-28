@@ -1,0 +1,55 @@
+$icon_font_name:"webfont";
+
+$webfont-icon--social--fb: "\E001";
+$webfont-icon--social--ok: "\E002";
+$webfont-icon--social--twitter: "\E003";
+$webfont-icon--social--vk: "\E004";
+
+@mixin webfont-icon($icon-code, $after-or-before: 'before') {
+	&:#{$after-or-before} {
+		content: #{'"\\' + $icon-code + '"'};
+		display: inline-block;
+		font-family: $icon_font_name;
+		font-style: normal;
+		line-height: 1;
+		color: currentColor;
+		-webkit-font-smoothing: antialiased;
+		speak: none;
+	}
+}
+
+@font-face {
+	font-family: $icon_font_name;
+	src: url('/fonts/webfont/webfont.woff') format('woff'),
+	url('/fonts/webfont/webfont.woff2') format('woff2'),
+	url('/fonts/webfont/webfont.svg#webfont') format('svg');
+}
+
+.webfont-icon {
+	font-family: $icon_font_name;
+	display: inline-block;
+	vertical-align: middle;
+	font-style: normal;
+	speak: none;
+	color: currentColor;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+}
+
+.webfont-icon--social--fb:before {
+	content: '\E001';
+}
+
+.webfont-icon--social--ok:before {
+	content: '\E002';
+}
+
+.webfont-icon--social--twitter:before {
+	content: '\E003';
+}
+
+.webfont-icon--social--vk:before {
+	content: '\E004';
+}
+
+

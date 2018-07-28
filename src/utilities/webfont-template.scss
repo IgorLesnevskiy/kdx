@@ -1,0 +1,41 @@
+$icon_font_name:"<%= fontName %>";
+
+<% _.each(glyphs, function(glyph) { %>$webfont-icon--<%= glyph.fileName %>: "\<%= glyph.codePoint %>";
+<%})%>
+@mixin webfont-icon($icon-code, $after-or-before: 'before') {
+	&:#{$after-or-before} {
+		content: #{'"\\' + $icon-code + '"'};
+		display: inline-block;
+		font-family: $icon_font_name;
+		font-style: normal;
+		line-height: 1;
+		color: currentColor;
+		-webkit-font-smoothing: antialiased;
+		speak: none;
+	}
+}
+
+@font-face {
+	font-family: $icon_font_name;
+	src: url('/fonts/webfont/<%= fontName %>.woff') format('woff'),
+	url('/fonts/webfont/<%= fontName %>.woff2') format('woff2'),
+	url('/fonts/webfont/<%= fontName %>.svg#<%= fontName %>') format('svg');
+}
+
+.webfont-icon {
+	font-family: $icon_font_name;
+	display: inline-block;
+	vertical-align: middle;
+	font-style: normal;
+	speak: none;
+	color: currentColor;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+}
+
+<% _.each(glyphs, function(glyph) { %>.webfont-icon--<%= glyph.fileName %>:before {
+	content: '\<%= glyph.codePoint %>';
+}
+
+<%})%>
+
