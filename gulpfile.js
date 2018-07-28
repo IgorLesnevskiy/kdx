@@ -86,7 +86,7 @@ gulp.task('build:styles', function () {
 			css: config.paths.dist.styles,
 			sass: config.paths.src.styles,
 			image: config.paths.src.images,
-			sourcemap: config.options.production,
+			sourcemap: !config.options.production,
 			comments: config.options.production,
 			// require: ['sass-globbing']
 		}))
