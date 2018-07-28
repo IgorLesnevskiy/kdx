@@ -35,7 +35,7 @@ const config = {
 	options: {
 		production: Boolean(argv['production']),
 		minifyHtml: Boolean(argv['minify-html']),
-		deployToGitHub: Boolean(argv['deploy']),
+		deploy: Boolean(argv['deploy']),
 		verbose: Boolean(argv['verbose'])
 	},
 	paths: {
@@ -87,7 +87,7 @@ gulp.task('build:styles', function () {
 			sass: config.paths.src.styles,
 			image: config.paths.src.images,
 			sourcemap: !config.options.production,
-			comments: config.options.production,
+			comments: !config.options.production,
 			// require: ['sass-globbing']
 		}))
 		.pipe(prefixer())
@@ -99,8 +99,8 @@ gulp.task('build:styles', function () {
 			css: config.paths.dist.styles,
 			sass: config.paths.src.styles,
 			image: config.paths.src.images,
-			sourcemap: config.options.production,
-			comments: config.options.production,
+			sourcemap: !config.options.production,
+			comments: !config.options.production,
 			// require: ['sass-globbing']
 		}))
 		.pipe(cssmin())
