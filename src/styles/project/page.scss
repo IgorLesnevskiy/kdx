@@ -44,4 +44,10 @@
 	}
 }
 
+.l-page-section {
+	&:not(:last-child) {
+		margin-bottom: 150px;
+	}
+}
+
 /* /Project: page.scss */

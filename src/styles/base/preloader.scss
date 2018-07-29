@@ -1,0 +1,34 @@
+/* Base: preloader.scss
+ * Прелоадер
+-------------------------------------------------- */
+.is-preloading {
+	$preloader--size-width: 80px;
+	$preloader--size-height: 80px;
+	$preloader--bg-color: $color--white;
+	$preloader--bg-opacity: 1;
+	$preloader--color: $color--gray;
+
+	min-height: $preloader--size-height * 2;
+	min-width: $preloader--size-width * 2;
+	z-index: 999999999;
+	position: relative;
+
+	&:after {
+		content: '';
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		left: 0;
+		top: 0;
+		background-image: url('/images/decor/preloader.svg');
+		background-position: center center;
+		background-repeat: no-repeat;
+		background-color: rgba($preloader--bg-color, $preloader--bg-opacity);
+		z-index: 1;
+	}
+}
+.feature-no-svg .is-preloading:after {
+	background-image: url('/images/decor/preloader.gif') !important;
+}
+
+/* /Base: preloader.scss */

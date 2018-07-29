@@ -4,14 +4,34 @@
 .b-custom-table {
 	$custom-table--header-bg: $color--cardinal;
 	$custom-table--header-color: #fff;
+	$custom-table--summary-bg: $color--cardinal;
+	$custom-table--summary-color: #fff;
 	$custom-table--body-bg: $color--azure;
 	$custom-table--body-color: $color--cinder;
 	$custom-table--font-size: 15px;
 
-	font-size: $custom-table--font-size;
-	display: table;
 	border-radius: 5px;
 	overflow: hidden;
+
+	&__inner {
+		font-size: $custom-table--font-size;
+		display: table;
+	}
+
+	&__noty {
+		padding: 15px 0;
+		display: none;
+	}
+
+	&__summary {
+		background: $custom-table--summary-bg;
+		color: $custom-table--summary-color;
+		font-weight: 500;
+	}
+
+	&__summary-title {
+		padding: 13px 15px;
+	}
 
 	&__row {
 		display: table-row;
@@ -27,11 +47,11 @@
 	&__cell--title {
 		width: 48%;
 
-		.main-text {
+		.title {
 
 		}
 
-		.extra-text {
+		.description {
 			display: block;
 			color: $color--bali-hai;
 			font-size: 13px;
@@ -43,6 +63,14 @@
 
 		.i-button {
 			margin-top: -5px;
+		}
+	}
+
+	&__cell--price {
+		.price-with-tax {
+			display: block;
+			color: $color--bali-hai;
+			font-size: 13px;
 		}
 	}
 
@@ -74,6 +102,26 @@
 	&__footer {
 		display: table-row-group;
 	}
+
+	&__footer &__row {
+		background: $custom-table--header-bg;
+		color: $custom-table--header-color;
+		font-weight: 500;
+	}
+
+	&.is-noty {
+		.b-custom-table__inner {
+			display: none;
+		}
+
+		.b-custom-table__summary {
+			display: none;
+		}
+
+		.b-custom-table__noty {
+			display: block;
+		}
+	}
 }
 
 .b-custom-table--full-width {
@@ -101,16 +149,6 @@
 
 		&__cell--title {
 			width: 48%;
-
-			.main-text {
-
-			}
-
-			.extra-text {
-				display: block;
-				color: $color--bali-hai;
-				font-size: 13px;
-			}
 		}
 
 		&__cell--year {

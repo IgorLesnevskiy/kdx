@@ -117,8 +117,9 @@ gulp.task('build:js', function () {
 		production: config.options.production,
 		cache: config.paths.cache,
 		entry: mainJs,
+		devtool: (config.options.production) ? false : 'inline-source-map',
 		output: {
-			path: path.resolve(config.paths.dist.js),
+			path: path.resolve(__dirname, config.paths.dist.js),
 			filename: 'main.bundle.js',
 			pathinfo: !config.options.production
 		},
