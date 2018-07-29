@@ -90,7 +90,9 @@ gulp.task('build:styles', function () {
 			comments: !config.options.production,
 			// require: ['sass-globbing']
 		}))
-		.pipe(prefixer())
+		.pipe(prefixer({
+			browsers: ['> 1%', 'IE > 7']
+		}))
 		.pipe(cssmin())
 		.pipe(gulp.dest(config.paths.dist.styles));
 
