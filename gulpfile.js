@@ -70,7 +70,7 @@ gulp.task('build:html', () => {
 		.pipe(pug({
 			pretty: !config.options['minify-html'],
 			locals: {
-				deployToGitHubPages: config.options['deploy']
+				deploy: config.options['deploy']
 			}
 		}))
 		.pipe(gulp.dest(config.paths.dist.html));
