@@ -28,6 +28,7 @@
 			top: 50%;
 			transform: translateY(-50%);
 			left: 0.75em;
+			pointer-events: none;
 		}
 
 		.b-form__field-input:focus + .b-form__field-label,

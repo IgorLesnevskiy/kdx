@@ -80,4 +80,72 @@
 	width: 100%;
 }
 
+@include breakpoint(sm) {
+	.b-custom-table {
+		display: block;
+
+		&__row {
+			display: flex;
+			position: relative;
+		}
+
+		&__body &__row {
+			border-bottom: 1px solid $color--pattens-blue;
+			padding-bottom: 40px;
+		}
+
+		&__cell {
+			display: block;
+			border-bottom: none !important;
+		}
+
+		&__cell--title {
+			width: 48%;
+
+			.main-text {
+
+			}
+
+			.extra-text {
+				display: block;
+				color: $color--bali-hai;
+				font-size: 13px;
+			}
+		}
+
+		&__cell--year {
+			position: absolute;
+			bottom: 20px;
+			left: 15px;
+			padding: 0;
+		}
+
+		&__cell--status {
+			position: absolute;
+			bottom: 20px;
+			left: 65px;
+			padding: 0;
+		}
+
+		&__cell--action {
+			position: absolute;
+			bottom: 15px;
+			right: 15px;
+			padding: 0;
+		}
+
+		&__header {
+			display: none;
+		}
+
+		&__body {
+			display: block;
+		}
+
+		&__footer {
+			display: block;
+		}
+	}
+}
+
 /* /Base: tables.scss */
