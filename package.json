@@ -7,7 +7,7 @@
     "build:production": "gulp build:clean --production",
     "server": "lite-server",
     "watch": "gulp watch",
-    "deploy": "yarn build:production --minify-html --deploy && git subtree push --prefix dist origin gh-pages"
+    "deploy": "yarn build:production --minify-html --deploy && git add dist && git commit -m \"prepare to deploy\" && git subtree push --prefix dist origin gh-pages"
   },
   "dependencies": {
     "babel-core": "^6.26.3",
