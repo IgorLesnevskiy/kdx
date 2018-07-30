@@ -8,31 +8,13 @@ class CAppController {
 	constructor() {
 		this.cCarambaController = new CCarambaController();
 		this.cTools = new CTools();
-
-		$.fn.parsley = function (options) {
-			if (this.length > 1) {
-				var instances = [];
-
-				this.each(function () {
-					instances.push($(this).parsley(options));
-				});
-
-				return instances;
-			}
-
-			// Return undefined if applied to non existing DOM element
-			if (this.length == 0) {
-				return;
-			}
-
-			return new Parsley.Factory(this[0], options);
-		};
 	}
 
 	init() {
 		return Promise.resolve()
 			.then(() => {
 				this.initSmartLabels();
+				this.initCustomSelects();
 
 				this.cCarambaController.init();
 			});
@@ -47,6 +29,19 @@ class CAppController {
 
 				$this.toggleClass('is-fill', $this.val() !== '');
 			}).blur();
+		}
+	}
+
+	/**
+	 * Инициализац
+	 */
+	initCustomSelects() {
+		const $selects = $('[data-is-custom-select]');
+
+		if ($selects.length) {
+			$selects.select2({
+
+			})
 		}
 	}
 }

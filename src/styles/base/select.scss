@@ -1,0 +1,17 @@
+/* Base: select.scss
+ * Кастомный селект
+-------------------------------------------------- */
+.b-select {
+	select {
+
+	}
+}
+
+.b-select--full-width {
+
+	select {
+		width: 100%;
+	}
+}
+
+/* /Base: select.scss */

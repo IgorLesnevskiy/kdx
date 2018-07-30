@@ -29,7 +29,9 @@ class CCarambaController {
 			}
 		};
 
+		//локаль
 		this.locale = 'ru';
+		//значение налоговой ставки по-умолчанию
 		this.tax = 13;
 
 		/**
@@ -96,6 +98,7 @@ class CCarambaController {
 						.delay(1000) //эмуляция долго ответа
 						.then(() => {
 							if (Object.keys(data).length) {
+								//обновление данных в таблицк
 								this.updateTableWithData(data);
 							} else {
 								this.showTableNotification(this.getText('error--empty_data'));
@@ -112,38 +115,56 @@ class CCarambaController {
 		}
 	}
 
+	/**
+	 * Инициализация работы с формой
+	 */
 	initForm() {
-		this.$form.parsley({
+		this.$form.parsley()
+			.on('form:submit', (form) => {
+				let data = {};
+				this.lockTable();
 
-		}).on('form:submit', (form) => {
-			let data = {};
+				//обходим все поля формы и собираем данные
+				for (let field in form.fields) {
+					if (form.fields.hasOwnProperty(field)) {
+						let fieldName = form.fields[field].$element.attr('data-field-type');
 
-			this.lockTable();
-
-			for (let field in form.fields) {
-				if (form.fields.hasOwnProperty(field)) {
-					let fieldName = form.fields[field].$element.attr('data-field-type');
-
-					data[fieldName] = form.fields[field].$element.val();
+						data[fieldName] = form.fields[field].getValue();
+					}
 				}
-			}
 
-			data.id = this.generateUniqRowID();
+				//получаем условно уникальный ID для нового элемента
+				data.id = this.generateUniqRowID();
 
-			this.addRowToLocalStorage(data);
-			this.updateTableWithData({
-				0: data
-			}, true);
+				let preparedData = [];
+				preparedData.push(data);
 
-			form.$element[0].reset();
-			$(form.$element).parsley().reset();
+				//добавляем элементв в локальное хранилищец
+				this.addRowToLocalStorage(data);
 
-			this.unlockTable();
+				//обновление
+				this.updateTableWithData(preparedData, true);
 
-			return false;
-		});
+				//сбрасываем значения форм
+				form.$element[0].reset();
+				$(form.$element).parsley().reset();
+				//обходим все поля формы и сбрасываем заполненность полей
+				for (let field in form.fields) {
+					if (form.fields.hasOwnProperty(field)) {
+						form.fields[field].$element.removeClass('is-fill');
+					}
+				}
+
+				this.unlockTable();
+
+				return false;
+			});
 	}
 
+	/**
+	 * Получить условно уникальный
+	 * @returns {number}
+	 */
 	generateUniqRowID() {
 		let uniqID = 0;
 		let existedID = [];
@@ -203,7 +224,7 @@ class CCarambaController {
 		for (let row in data) {
 			if (data.hasOwnProperty(row)) {
 				//нет смыслы выводить строку, если отстутсвует ID или TITLE
-				if (data[row].id && data[row].title) {
+				if (typeof data[row].id != 'undefined' && typeof data[row].title != 'undefined') {
 					let rowMarkup = this.markupTemplate.scaffold;
 
 					for (let fieldName in data[row]) {
@@ -276,6 +297,7 @@ class CCarambaController {
 		}
 
 		this.updateSummaryPrice();
+		this.updateTableViewStatus();
 	}
 
 	updateSummaryPrice() {
@@ -364,6 +386,14 @@ class CCarambaController {
 		return this.getRows().length == 0;
 	}
 
+	updateTableViewStatus() {
+		if (this.isNoRows()) {
+			this.showTableNotification(this.getText('error--empty_data'));
+		} else {
+			this.$tableWrapper.removeClass('is-noty');
+		}
+	}
+
 	initDeleteTrigger() {
 		this.$tableWrapper.on('click', '.js-delete-trigger', (e) => {
 			let $this = $(e.currentTarget);
@@ -379,11 +409,7 @@ class CCarambaController {
 					.then(() => {
 						$row.remove();
 						this.deleteRowFromLocalStorage(rowID);
-
-						if (this.isNoRows()) {
-							this.showTableNotification(this.getText('error--empty_data'));
-						}
-
+						this.updateTableViewStatus();
 						this.updateSummaryPrice();
 						this.unlockTable();
 					});

@@ -4,12 +4,9 @@ require('./vendor/modernizr');
 require('expose-loader?$!expose-loader?jquery!expose-loader?jQuery!jquery/dist/jquery.min.js');
 //Bluebird
 require('expose-loader?Promise!bluebird');
-//Velocity-animate
-require('expose-loader?Velocity!velocity-animate/velocity.min.js');
 //Parsley
-
-require('expose-loader?Parsley!parsleyjs/dist/parsley.min.js');
+require("parsleyjs");
 require('parsleyjs/dist/i18n/ru.js');
+//Select2
+require('expose-loader?Select2!select2');
 
-//jquery-mask-plugin
-// require('./vendor/jquery.mask.plugin.min');

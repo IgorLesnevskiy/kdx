@@ -66,7 +66,18 @@ block content
                     div.col-4.col-sm-6
                         div.b-form__field-wrapper
                             div.b-form__field.b-form__field--select
-                                div.b-select 1
+                                div.b-select.b-select--full-width
+                                    select(
+                                        data-is-custom-select = true
+                                        data-placeholder = "Статус"
+                                        data-width = "100%"
+                                        data-theme = "autoparts"
+                                        data-minimum-results-for-search = "-1"
+                                        data-field-type = "status"
+                                    )
+                                        option(value="in_stock") В наличии
+                                        option(value="pending") Ожидается
+                                        option(value="out_of_stock") Нет в наличии
                     div.col-4.col-sm-6
                         div.b-form__field-wrapper
                             button.i-button.i-button--full-width(type="submit") Отправить

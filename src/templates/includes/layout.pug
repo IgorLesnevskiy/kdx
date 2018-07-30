@@ -1,8 +1,7 @@
 doctype html
-html(
-    lang="ru",
-    dir="ltr"
-)
+<!--[if IE 8]><html class="ie8" lang="ru" dir="ltr"><![endif]-->
+<!--[if IE 9]><html class="ie9" lang="ru" dir="ltr"><![endif]-->
+<!--[if gt IE 9]><!--><html lang="ru" dir="ltr"><!--<![endif]-->
     head
         if deploy
             - var baseUrl = "https://igorlesnevskiy.github.io/kdx/";
