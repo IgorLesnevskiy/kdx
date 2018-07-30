@@ -43,4 +43,17 @@
 	}
 }
 
+@include breakpoint(sm) {
+	$header--mobile-height: 80px;
+
+	.b-header {
+		height: $header--mobile-height;
+
+		&__logo {
+			width: 320px;
+			top: 0;
+		}
+	}
+}
+
 /* /Project: header */

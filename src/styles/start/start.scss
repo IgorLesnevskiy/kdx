@@ -70,3 +70,9 @@ img {
 		min-height: 1px;
 	}
 }
+
+@include breakpoint(sm) {
+	.hide-sm {
+		display: none;
+	}
+}

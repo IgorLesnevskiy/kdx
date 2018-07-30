@@ -24,7 +24,8 @@
 	}
 
 	&:focus,
-	&:active {
+	&:active,
+	&.is-fill {
 		border-bottom-color: $input--border-bottom-color-active;
 		color: $input--color-fill;
 	}

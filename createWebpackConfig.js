@@ -5,7 +5,11 @@ module.exports = function createWebpackConfig(_options) {
 	const options = _options || {};
 
 	const plugins = [
-		new webpack.ProvidePlugin({}),
+		new webpack.ProvidePlugin({
+			$: 'jquery',
+			'window.jQuery': 'jquery',
+			jQuery: 'jquery'
+		}),
 		// Хак, необходимый для корректной работы конструкции catch в промисах
 		new webpack.DefinePlugin({
 			'\.catch': '["catch"]',

@@ -8,7 +8,7 @@ class CTools {
 	 * клонирование объекта без привязки по ссылке
 	 * @param object
 	 */
-	static cloneObject (object = {}) {
+	static cloneObject(object = {}) {
 		return JSON.parse(JSON.stringify(object));
 	}
 

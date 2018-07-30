@@ -16,6 +16,7 @@
 	&__inner {
 		font-size: $custom-table--font-size;
 		display: table;
+		width: 100%;
 	}
 
 	&__noty {
@@ -129,8 +130,14 @@
 }
 
 @include breakpoint(sm) {
+	$custom-table--sm-font-size: 14px;
+
 	.b-custom-table {
 		display: block;
+
+		&__inner {
+			font-size: $custom-table--sm-font-size;
+		}
 
 		&__row {
 			display: flex;
@@ -139,22 +146,32 @@
 
 		&__body &__row {
 			border-bottom: 1px solid $color--pattens-blue;
-			padding-bottom: 40px;
+			padding-bottom: 20px;
 		}
 
 		&__cell {
 			display: block;
 			border-bottom: none !important;
+			padding: 15px 10px;
 		}
 
 		&__cell--title {
-			width: 48%;
+			width: 100%;
+
+			.title {
+				width: 45%;
+			}
+
+			.description {
+				margin-top: 15px;
+				margin-bottom: 20px;
+			}
 		}
 
 		&__cell--year {
 			position: absolute;
 			bottom: 20px;
-			left: 15px;
+			left: 10px;
 			padding: 0;
 		}
 
@@ -168,7 +185,21 @@
 		&__cell--action {
 			position: absolute;
 			bottom: 15px;
-			right: 15px;
+			right: 35px;
+			padding: 0;
+		}
+
+		&__cell--color {
+			position: absolute;
+			top: 20px;
+			right: 150px;
+			padding: 0;
+		}
+
+		&__cell--price {
+			position: absolute;
+			top: 15px;
+			right: 5px;
 			padding: 0;
 		}
 
@@ -183,6 +214,12 @@
 		&__footer {
 			display: block;
 		}
+	}
+}
+
+@include breakpoint(xs) {
+	.b-custom-table__cell--title .title {
+		width: 40%;
 	}
 }
 

@@ -15,16 +15,16 @@ class CCarambaController {
 		 * @type {{ru: {status: {pending: string, out_of_stock: string, in_stock: string}, removeButtonText: string}, en: {}}}
 		 */
 		this.text = {
-			'ru': {
+			ru: {
 				'status--pending': 'Ожидается',
 				'status--out_of_stock': 'Нет в наличии',
 				'status--in_stock': 'В наличии',
 				'error--load_error': 'Ошибка загрузки данных',
 				'error--empty_data': 'Нет данных для отображения',
-				'remove_button_text': 'Удалить',
-				'currency': 'руб.',
+				remove_button_text: 'Удалить',
+				currency: 'руб.',
 			},
-			'en': {
+			en: {
 
 			}
 		};
@@ -47,7 +47,7 @@ class CCarambaController {
 		 * @type {{scaffold: string, optional: {description: string, colorBox: string}}}
 		 */
 		this.markupTemplate = {
-			'scaffold': `
+			scaffold: `
 				<div class="b-custom-table__row" data-row-id="{{id}}">
 				  <div class="b-custom-table__cell b-custom-table__cell--title">
 				    <div class="title">{{title}}</div>
@@ -67,9 +67,9 @@ class CCarambaController {
 				  </div>
 				</div>
 			`,
-			'optional': {
-				'description': `<div class="description">{{description}}</div>`,
-				'colorBox': `<div class="i-color-box" style="background-color: {{colorCode}}"></div>`,
+			optional: {
+				description: `<div class="description">{{description}}</div>`,
+				colorBox: `<div class="i-color-box" style="background-color: {{colorCode}}"></div>`,
 			}
 		};
 
@@ -78,13 +78,15 @@ class CCarambaController {
 
 	init() {
 		this.$tableWrapper = $('#caramba-table');
+		this.$form = $('#caramba-form');
 
-		if (this.$tableWrapper.length) {
+		if (this.$tableWrapper.length && this.$form.length) {
 			this.$tableRowContainer = this.$tableWrapper.find('.js-body');
 			this.$tableNoty = this.$tableWrapper.find('.js-noty');
 			this.$tableSummaryPrice = this.$tableWrapper.find('.js-summary-price');
 
 			this.initDeleteTrigger();
+			this.initForm();
 
 			this.lockTable();
 
@@ -106,9 +108,58 @@ class CCarambaController {
 				.catch((msg) => {
 					//TODO обработка ошибок
 					this.showTableNotification(this.getText('error--load_error'));
-				})
+				});
 		}
 	}
+
+	initForm() {
+		this.$form.parsley({
+
+		}).on('form:submit', (form) => {
+			let data = {};
+
+			this.lockTable();
+
+			for (let field in form.fields) {
+				if (form.fields.hasOwnProperty(field)) {
+					let fieldName = form.fields[field].$element.attr('data-field-type');
+
+					data[fieldName] = form.fields[field].$element.val();
+				}
+			}
+
+			data.id = this.generateUniqRowID();
+
+			this.addRowToLocalStorage(data);
+			this.updateTableWithData({
+				0: data
+			}, true);
+
+			form.$element[0].reset();
+			$(form.$element).parsley().reset();
+
+			this.unlockTable();
+
+			return false;
+		});
+	}
+
+	generateUniqRowID() {
+		let uniqID = 0;
+		let existedID = [];
+
+		$.each(this.getRows(), (i, row) => {
+			existedID.push($(row).attr('data-row-id'));
+		});
+
+		if (existedID.length) {
+			let max = Math.max.apply(null, existedID.map(Number));
+			uniqID = max + 1;
+		}
+
+		return uniqID;
+	}
+
 
 	loadData() {
 		return new Promise((resolve, reject) => {
@@ -124,8 +175,18 @@ class CCarambaController {
 				error: (jqXHR, textStatus, error) => {
 					reject('false');
 				}
-			})
-		});
+			});
+		})
+			.then((data) => {
+				let localData = this.getAllRowsFromLocalStorage();
+				let mergedData = {};
+
+				if (localData) {
+					return Object.assign({}, localData, data);
+				} else {
+					return data;
+				}
+			});
 	}
 
 	lockTable() {}
@@ -231,12 +292,40 @@ class CCarambaController {
 			}
 		});
 
-		this.$tableSummaryPrice.html(`${CTools.formatMoney(Number(summaryPrice), this.locale)} ${this.getText('currency')}`)
+		this.$tableSummaryPrice.html(`${CTools.formatMoney(Number(summaryPrice), this.locale)} ${this.getText('currency')}`);
 	}
 
 	getRows() {
 		return this.$tableRowContainer.find('[data-row-id]');
 	}
+
+	addRowToLocalStorage(data) {
+		if (data && localStorage) {
+			localStorage.setItem(`autoParts--row-${data.id}`, JSON.stringify(data));
+		}
+	}
+
+	getAllRowsFromLocalStorage() {
+		let data = {};
+
+		for (let key in localStorage) {
+			if (localStorage.hasOwnProperty(key)) {
+				if (key.indexOf('autoParts--row') != -1) {
+					let obj = JSON.parse(localStorage.getItem(key));
+					data[obj.id] = obj;
+				}
+			}
+		}
+
+		return Object.keys(data).length ? data : false;
+	}
+
+	deleteRowFromLocalStorage(id) {
+		if (localStorage.getItem(`autoParts--row-${id}`)) {
+			localStorage.removeItem(`autoParts--row-${id}`);
+		}
+	}
+
 
 	/**
 	 * Получить текст по коду для переданной локали
@@ -247,7 +336,7 @@ class CCarambaController {
 	getTextByLocale(locale = 'ru', text) {
 		return (text) => {
 			return (this.text && this.text[locale] && this.text[locale][text]) ? this.text[locale][text] : false;
-		}
+		};
 	}
 
 	lockTable() {
@@ -281,12 +370,15 @@ class CCarambaController {
 			let $row = $this.closest('[data-row-id]');
 
 			if ($row.length) {
+				let rowID = $row.attr('data-row-id');
+
 				this.lockTable();
 
 				Promise.resolve()
 					.delay(100) //чисто для демонстрации работы с сервером
 					.then(() => {
 						$row.remove();
+						this.deleteRowFromLocalStorage(rowID);
 
 						if (this.isNoRows()) {
 							this.showTableNotification(this.getText('error--empty_data'));
@@ -294,9 +386,9 @@ class CCarambaController {
 
 						this.updateSummaryPrice();
 						this.unlockTable();
-					})
+					});
 			}
-		})
+		});
 	}
 }
 

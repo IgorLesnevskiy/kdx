@@ -50,4 +50,16 @@
 	}
 }
 
+@include breakpoint(sm) {
+	.l-page__title {
+		margin-top: 10px;
+		margin-bottom: 25px;
+	}
+
+	.l-page-section {
+		&:not(:last-child) {
+			margin-bottom: 55px;
+		}
+	}
+}
 /* /Project: page.scss */
