@@ -35,7 +35,7 @@
 			pointer-events: none;
 		}
 
-		.parsley-errors-list + .b-form__field-label,
+		.parsley-errors-list:not(:empty) + .b-form__field-label,
 		.b-form__field-input:focus + .b-form__field-label,
 		.b-form__field-input.is-fill + .b-form__field-label {
 			top: -1.75em;

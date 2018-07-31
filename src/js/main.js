@@ -67,7 +67,7 @@ class CAppController {
 	 */
 	initCustomFormValidators() {
 		window.Parsley.addValidator('productionYear', {
-			validateString: function(value) {
+			validateString: function (value) {
 				return Number(value) >= 1980 && Number(value) <= new Date().getFullYear();
 			},
 			messages: {
@@ -85,7 +85,7 @@ class CAppController {
 		let $moneyMask = $('[data-money-mask]');
 
 		if ($yearMask.length) {
-			$yearMask.mask("9999");
+			$yearMask.mask('9999');
 		}
 
 		if ($moneyMask.length) {

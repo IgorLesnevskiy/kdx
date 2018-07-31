@@ -146,7 +146,7 @@ class CCarambaController {
 						let value = form.fields[field].getValue();
 
 						if (fieldName == 'price') {
-							data[fieldName] = value.replace(/\s/, '').replace(/,/,'.');
+							data[fieldName] = value.replace(/\s/, '').replace(/,/, '.');
 						} else {
 							data[fieldName] = value;
 						}
@@ -311,7 +311,7 @@ class CCarambaController {
 							}
 
 							if (fieldName == 'price') {
-								let price = typeof value == 'string' ? value.replace(/\s/, '').replace(/,/,'.') : value;
+								let price = typeof value == 'string' ? value.replace(/\s/, '').replace(/,/, '.') : value;
 								let priceWithTax = CTools.getPriceWithTax(price, this.tax, 2);
 								let formattedPrice = CTools.formatMoney(price, this.locale);
 								let formattedPriceWithTax = CTools.formatMoney(priceWithTax, this.locale);
