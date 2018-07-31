@@ -94,6 +94,10 @@
 		color: $custom-table--body-color;
 		font-weight: 300;
 
+		.b-custom-table__cell {
+			vertical-align: middle;
+		}
+
 		&:not(:last-child) .b-custom-table__cell {
 			border-bottom: 1px solid $color--pattens-blue;
 
