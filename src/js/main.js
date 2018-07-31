@@ -1,6 +1,17 @@
 const CCarambaController = require('./parts/CCaramba');
 const CTools = require('./parts/CTools');
 
+Promise.config({
+	// Enable warnings
+	warnings: !production,
+	// Enable long stack traces
+	longStackTraces: !production,
+	// Enable cancellation
+	cancellation: !production,
+	// Enable monitoring
+	monitoring: !production
+});
+
 /**
  * Главный контроллер
  */
@@ -13,6 +24,7 @@ class CAppController {
 	init() {
 		return Promise.resolve()
 			.then(() => {
+
 				this.initSmartLabels();
 				this.initCustomSelects();
 
@@ -20,6 +32,9 @@ class CAppController {
 			});
 	}
 
+	/**
+	 * Инициализация умных плейсхолдеров
+	 */
 	initSmartLabels() {
 		const $smartLabels = $('.js-smart-label--input');
 
@@ -33,7 +48,7 @@ class CAppController {
 	}
 
 	/**
-	 * Инициализац
+	 * Инициализация кастомных селектов
 	 */
 	initCustomSelects() {
 		const $selects = $('[data-is-custom-select]');
@@ -41,7 +56,7 @@ class CAppController {
 		if ($selects.length) {
 			$selects.select2({
 
-			})
+			});
 		}
 	}
 }
@@ -51,6 +66,7 @@ const cAppController = new CAppController();
 $(document).ready(() => {
 	cAppController.init()
 		.then(() => {
+			//выбрасываем в global для доступа
 			global.AC = cAppController;
 		});
 });

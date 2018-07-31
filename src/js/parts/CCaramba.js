@@ -7,11 +7,12 @@ const CTools = require('./CTools');
  */
 class CCarambaController {
 	constructor() {
+		//данные для загрузки
 		this.loadUrl = 'https://rawgit.com/Varinetz/e6cbadec972e76a340c41a65fcc2a6b3/raw/90191826a3bac2ff0761040ed1d95c59f14eaf26/frontend_test_table.json';
 
 		/**
-		 * Локализация. В перспективах равзития это следует выносит в отдельный json-файл, либо как-то пробрасывать
-		 * из базы.
+		 * Локализация. В перспективах равзития это следует выносить в отдельный json-файл,
+		 * либо как-то пробрасывать из базы.
 		 * @type {{ru: {status: {pending: string, out_of_stock: string, in_stock: string}, removeButtonText: string}, en: {}}}
 		 */
 		this.text = {
@@ -21,8 +22,8 @@ class CCarambaController {
 				'status--in_stock': 'В наличии',
 				'error--load_error': 'Ошибка загрузки данных',
 				'error--empty_data': 'Нет данных для отображения',
-				remove_button_text: 'Удалить',
-				currency: 'руб.',
+				'remove_button_text': 'Удалить',
+				'currency': 'руб.'
 			},
 			en: {
 
@@ -45,7 +46,7 @@ class CCarambaController {
 		 * усложняет читаемость разметки. В перспективах развития это можно вынести в виде
 		 * такого же объекта в однельны json-сниппет и подгружать асинхронно, например. Но в рамках данного
 		 * задания и при неизвестной архитектуре прочих частей продукта, я решил не усложнять это до такой степени.
-		 * scaffold - скелет разметки. Также в нем присутствуют опциональные части, которые описание в optioanl
+		 * scaffold - скелет разметки. Также в нем присутствуют опциональные части, которые описание в optional
 		 * @type {{scaffold: string, optional: {description: string, colorBox: string}}}
 		 */
 		this.markupTemplate = {
@@ -78,24 +79,33 @@ class CCarambaController {
 		this.$tableWrapper = null;
 	}
 
+	/**
+	 * Инициализация логики работы контроллера
+	 */
 	init() {
+		//таблица
 		this.$tableWrapper = $('#caramba-table');
+		//форма
 		this.$form = $('#caramba-form');
 
 		if (this.$tableWrapper.length && this.$form.length) {
+			//тело таблицы
 			this.$tableRowContainer = this.$tableWrapper.find('.js-body');
+			//блок для уведомлений
 			this.$tableNoty = this.$tableWrapper.find('.js-noty');
+			//итоговая цена
 			this.$tableSummaryPrice = this.$tableWrapper.find('.js-summary-price');
 
+			//триггер для удаления строк
 			this.initDeleteTrigger();
+			//инициализации логики работы с формой
 			this.initForm();
 
 			this.lockTable();
-
 			this.loadData()
 				.then((data) => {
 					return Promise.resolve()
-						.delay(1000) //эмуляция долго ответа
+						.delay(1000) //эмуляция долгого ответа от сервера
 						.then(() => {
 							if (Object.keys(data).length) {
 								//обновление данных в таблицк
@@ -122,6 +132,11 @@ class CCarambaController {
 		this.$form.parsley()
 			.on('form:submit', (form) => {
 				let data = {};
+
+				if (this.isTableLock()) {
+					return false;
+				}
+
 				this.lockTable();
 
 				//обходим все поля формы и собираем данные
@@ -145,15 +160,7 @@ class CCarambaController {
 				//обновление
 				this.updateTableWithData(preparedData, true);
 
-				//сбрасываем значения форм
-				form.$element[0].reset();
-				$(form.$element).parsley().reset();
-				//обходим все поля формы и сбрасываем заполненность полей
-				for (let field in form.fields) {
-					if (form.fields.hasOwnProperty(field)) {
-						form.fields[field].$element.removeClass('is-fill');
-					}
-				}
+				this.resetForm(form);
 
 				this.unlockTable();
 
@@ -162,45 +169,78 @@ class CCarambaController {
 	}
 
 	/**
-	 * Получить условно уникальный
-	 * @returns {number}
+	 * Сбросить поля в форме
+	 * @param parsleyForm
 	 */
-	generateUniqRowID() {
-		let uniqID = 0;
-		let existedID = [];
+	resetForm(parsleyForm) {
+		let $form = $(parsleyForm.$element);
+		let $customSelects = $form.find('[data-is-custom-select]');
 
-		$.each(this.getRows(), (i, row) => {
-			existedID.push($(row).attr('data-row-id'));
-		});
+		//сбрасываем значения форм
+		parsleyForm.$element[0].reset();
+		$form.parsley().reset();
 
-		if (existedID.length) {
-			let max = Math.max.apply(null, existedID.map(Number));
-			uniqID = max + 1;
+		//обходим все поля формы и сбрасываем заполненность полей
+		for (let field in parsleyForm.fields) {
+			if (parsleyForm.fields.hasOwnProperty(field)) {
+				parsleyForm.fields[field].$element.removeClass('is-fill');
+			}
 		}
 
-		return uniqID;
+		if ($customSelects.length) {
+			$.each($customSelects, (i, select) => {
+				$(select).val('').trigger('change');
+			})
+		}
 	}
 
 
+	/**
+	 * Инициализация логики удаления строк из таблицы
+	 */
+	initDeleteTrigger() {
+		this.$tableWrapper.on('click', '.js-delete-trigger', (e) => {
+			let $this = $(e.currentTarget);
+			let $row = $this.closest('[data-row-id]');
+
+			if ($row.length) {
+				let rowID = $row.attr('data-row-id');
+
+				this.lockTable();
+
+				Promise.resolve()
+					.delay(100) //чисто для демонстрации работы с сервером
+					.then(() => {
+						$row.remove();
+						this.deleteRowFromLocalStorage(rowID);
+						this.updateTableViewStatus();
+						this.updateSummaryPrice();
+						this.unlockTable();
+					});
+			}
+		});
+	}
+
+	/**
+	 * Подгрузка данный с удаленного источника
+	 * @returns {Promise.<TResult>}
+	 */
 	loadData() {
 		return new Promise((resolve, reject) => {
 			$.ajax({
 				url: this.loadUrl,
-				data: {
-
-				},
+				data: {},
 				dataType: 'json',
 				success: (data) => {
 					resolve(data);
 				},
 				error: (jqXHR, textStatus, error) => {
-					reject('false');
+					reject();
 				}
 			});
 		})
 			.then((data) => {
 				let localData = this.getAllRowsFromLocalStorage();
-				let mergedData = {};
 
 				if (localData) {
 					return Object.assign({}, localData, data);
@@ -210,11 +250,9 @@ class CCarambaController {
 			});
 	}
 
-	lockTable() {}
-
 	/**
 	 * Вывод данных в шаблонную строку и добавление данныех
-	 * Дальнейшее развитие - дополнительная безопасная обработка данных с серва
+	 * TODO дополнительная безопасная обработка данных с серва
 	 * @param data
 	 * @param bAppend - не очищать существующие данные в таблице
 	 */
@@ -245,7 +283,7 @@ class CCarambaController {
 							}
 
 							/**
-							 * Цвета вывожу прямо в виде текста, но по-хорошему нужно отдавать через API код
+							 * Цвета вывожу прямо в виде текста, но по-хорошему нужно отдавать хэш через API
 							 */
 							if (fieldName == 'color') {
 								rowMarkup = rowMarkup.replace(/{{optionalColorbox}}/g, this.markupTemplate.optional.colorBox);
@@ -257,7 +295,7 @@ class CCarambaController {
 							}
 
 							if (fieldName == 'status') {
-								//опечатка в статусе, прилетает с АПИ
+								//опечатка в статусе, в таком виде прилетает с АПИ
 								if (value == 'pednding') {
 									value = 'pending';
 								}
@@ -293,6 +331,7 @@ class CCarambaController {
 		if (bAppend) {
 			this.$tableRowContainer.append(resultMarkup.join(''));
 		} else {
+			this.$tableRowContainer.html('');
 			this.$tableRowContainer.append(resultMarkup.join(''));
 		}
 
@@ -300,6 +339,9 @@ class CCarambaController {
 		this.updateTableViewStatus();
 	}
 
+	/**
+	 * Обновление итоговой суммы таблицы
+	 */
 	updateSummaryPrice() {
 		let summaryPrice = 0;
 
@@ -310,25 +352,42 @@ class CCarambaController {
 				: $row.find('.js-price').attr('data-original-price');
 
 			if (price) {
-				summaryPrice = Number(summaryPrice) + Number(price);
+				if (!isNaN(summaryPrice) && !isNaN(price)) {
+					summaryPrice = Number(summaryPrice) + Number(price);
+				}
 			}
 		});
 
 		this.$tableSummaryPrice.html(`${CTools.formatMoney(Number(summaryPrice), this.locale)} ${this.getText('currency')}`);
 	}
 
+	/**
+	 * Получить все строки из таблицы
+	 */
 	getRows() {
 		return this.$tableRowContainer.find('[data-row-id]');
 	}
 
+	/**
+	 * Добавить данные о записи в localStorage
+	 * @param data
+	 */
 	addRowToLocalStorage(data) {
-		if (data && localStorage) {
+		if (data && data.id && localStorage) {
 			localStorage.setItem(`autoParts--row-${data.id}`, JSON.stringify(data));
 		}
 	}
 
+	/**
+	 * Получить данные из localStorage
+	 * @returns {*}
+	 */
 	getAllRowsFromLocalStorage() {
 		let data = {};
+
+		if (!localStorage) {
+			return false;
+		}
 
 		for (let key in localStorage) {
 			if (localStorage.hasOwnProperty(key)) {
@@ -342,12 +401,15 @@ class CCarambaController {
 		return Object.keys(data).length ? data : false;
 	}
 
+	/**
+	 * Удалить данные из localStorage
+	 * @param id
+	 */
 	deleteRowFromLocalStorage(id) {
 		if (localStorage.getItem(`autoParts--row-${id}`)) {
 			localStorage.removeItem(`autoParts--row-${id}`);
 		}
 	}
-
 
 	/**
 	 * Получить текст по коду для переданной локали
@@ -361,18 +423,28 @@ class CCarambaController {
 		};
 	}
 
-	lockTable() {
-		this.$tableWrapper.addClass('is-preloading');
-	}
+	/**
+	 * Получить условно уникальный id
+	 * @returns {number}
+	 */
+	generateUniqRowID() {
+		let uniqID = 0;
+		let existedID = [];
 
-	unlockTable() {
-		this.$tableWrapper.removeClass('is-preloading');
-	}
+		$.each(this.getRows(), (i, row) => {
+			existedID.push($(row).attr('data-row-id'));
+		});
 
-	isTableLock() {}
+		if (existedID.length) {
+			let max = Math.max.apply(null, existedID.map(Number));
+			uniqID = max + 1;
+		}
+
+		return uniqID;
+	}
 
 	/**
-	 * Выводит сообщение в блоке вместо
+	 * Выводит сообщение в информационном табличном блоке
 	 * @param msg
 	 */
 	showTableNotification(msg = '') {
@@ -382,10 +454,9 @@ class CCarambaController {
 		}
 	}
 
-	isNoRows() {
-		return this.getRows().length == 0;
-	}
-
+	/**
+	 * Проверяет, есть ли в таблице данные для показа. Если нет - выводит уведомление
+	 */
 	updateTableViewStatus() {
 		if (this.isNoRows()) {
 			this.showTableNotification(this.getText('error--empty_data'));
@@ -394,27 +465,33 @@ class CCarambaController {
 		}
 	}
 
-	initDeleteTrigger() {
-		this.$tableWrapper.on('click', '.js-delete-trigger', (e) => {
-			let $this = $(e.currentTarget);
-			let $row = $this.closest('[data-row-id]');
+	/**
+	 * Проверяет, пуста ил таблица
+	 * @returns {boolean}
+	 */
+	isNoRows() {
+		return this.getRows().length == 0;
+	}
 
-			if ($row.length) {
-				let rowID = $row.attr('data-row-id');
+	/**
+	 * Блокировка таблицы
+	 */
+	lockTable() {
+		this.$tableWrapper.addClass('is-preloading');
+	}
 
-				this.lockTable();
+	/**
+	 * Разблокировка таблицы
+	 */
+	unlockTable() {
+		this.$tableWrapper.removeClass('is-preloading');
+	}
 
-				Promise.resolve()
-					.delay(100) //чисто для демонстрации работы с сервером
-					.then(() => {
-						$row.remove();
-						this.deleteRowFromLocalStorage(rowID);
-						this.updateTableViewStatus();
-						this.updateSummaryPrice();
-						this.unlockTable();
-					});
-			}
-		});
+	/**
+	 * Таблица заблокирована?
+	 */
+	isTableLock() {
+		return this.$tableWrapper.hasClass('is-preloading');
 	}
 }
 

@@ -10,8 +10,8 @@ const imagemin = require('gulp-imagemin');
 const cssmin = require('gulp-minify-css');
 const iconfont = require('gulp-iconfont');
 const iconfontCss = require('gulp-iconfont-css');
-const postcss = require("gulp-postcss");
-const url = require("postcss-url");
+const postcss = require('gulp-postcss');
+const url = require('postcss-url');
 const path = require('path');
 const argv = require('yargs').argv;
 const runSequence = require('run-sequence');
@@ -83,7 +83,7 @@ gulp.task('build:styles', function () {
 		.pipe(postcss([
 			url({
 				url: (asset, dir, options) => {
-		// 			console.log(asset);
+					// 			console.log(asset);
 					if (config.options.deploy) {
 						return path.join(config.paths.deployRoot, asset.url);
 					} else {
@@ -148,16 +148,16 @@ gulp.task('build:js', function () {
 				minChunks: Infinity
 			}),
 			new webpack.ProvidePlugin({
-				$: "jquery",
-				jQuery: "jquery",
-				'window.jQuery': "jquery",
-				'window.$': "jquery"
+				$: 'jquery',
+				jQuery: 'jquery',
+				'window.jQuery': 'jquery',
+				'window.$': 'jquery',
 			}),
 			// Хак, необходимый для корректной работы конструкции catch в промисах
 			new webpack.DefinePlugin({
 				'\.catch': '["catch"]',
-			}),
-			new webpack.ProvidePlugin({}),
+				'production': config.options.production
+			})
 		]
 	};
 

@@ -10,7 +10,7 @@
 	$button--bg-color-hover: darken($color--cardinal, 5%);
 	$button--bg-color-active: darken($color--cardinal, 5%);
 
-	min-height: 42px;
+	height: 42px;
 	padding: 0.5em 1em;
 	display: inline-flex;
 	justify-content: center;

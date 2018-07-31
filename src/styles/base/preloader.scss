@@ -32,4 +32,8 @@
 	background-image: url('/images/decor/preloader.gif') !important;
 }
 
+.ie .is-preloading:after {
+	background-image: url('/images/decor/preloader.gif') !important;
+}
+
 /* /Base: preloader.scss */

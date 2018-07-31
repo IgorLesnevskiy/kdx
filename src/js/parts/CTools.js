@@ -5,7 +5,7 @@ class CTools {
 	constructor() {}
 
 	/**
-	 * клонирование объекта без привязки по ссылке
+	 * Клонирование объекта без привязки по ссылке
 	 * @param object
 	 */
 	static cloneObject(object = {}) {
