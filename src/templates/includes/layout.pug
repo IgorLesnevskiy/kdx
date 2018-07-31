@@ -104,6 +104,15 @@ doctype html
         <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
         <![endif]-->
 
+        script.
+            if (Function('/*@cc_on return document.documentMode===10@*/')()) {
+                document.documentElement.className += ' ie ie10';
+            }
+
+            if (!!window.MSInputMethodContext && !!document.documentMode) {
+                document.documentElement.className += ' ie ie11';
+            }
+
         block styles
             link(rel='stylesheet', href= baseUrl + "css/vendor.css")
             link(rel='stylesheet', href= baseUrl + "css/main.css")

@@ -22,8 +22,8 @@ class CCarambaController {
 				'status--in_stock': 'В наличии',
 				'error--load_error': 'Ошибка загрузки данных',
 				'error--empty_data': 'Нет данных для отображения',
-				'remove_button_text': 'Удалить',
-				'currency': 'руб.'
+				remove_button_text: 'Удалить',
+				currency: 'руб.'
 			},
 			en: {
 
@@ -190,7 +190,7 @@ class CCarambaController {
 		if ($customSelects.length) {
 			$.each($customSelects, (i, select) => {
 				$(select).val('').trigger('change');
-			})
+			});
 		}
 	}
 

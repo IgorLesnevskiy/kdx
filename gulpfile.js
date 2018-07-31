@@ -156,7 +156,7 @@ gulp.task('build:js', function () {
 			// Хак, необходимый для корректной работы конструкции catch в промисах
 			new webpack.DefinePlugin({
 				'\.catch': '["catch"]',
-				'production': config.options.production
+				production: config.options.production
 			})
 		]
 	};
