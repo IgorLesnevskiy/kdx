@@ -6,17 +6,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Заголовок страницы</title>
   <meta name="description" content="Описание страницы">
-  <link rel="apple-touch-icon" sizes="180x180" href="https://igorlesnevskiy.github.io/kdx/images/favicon/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="https://igorlesnevskiy.github.io/kdx/images/favicon/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="194x194" href="https://igorlesnevskiy.github.io/kdx/images/favicon/favicon-194x194.png">
-  <link rel="icon" type="image/png" sizes="192x192" href="https://igorlesnevskiy.github.io/kdx/images/favicon/android-chrome-192x192.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="https://igorlesnevskiy.github.io/kdx/images/favicon/favicon-16x16.png">
-  <link rel="manifest" href="https://igorlesnevskiy.github.io/kdx/images/favicon/site.webmanifest">
-  <link rel="mask-icon" href="https://igorlesnevskiy.github.io/kdx/images/favicon/safari-pinned-tab.svg" color="#5bbad5">
-  <link rel="shortcut icon" href="https://igorlesnevskiy.github.io/kdx/images/favicon/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="194x194" href="/images/favicon/favicon-194x194.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/images/favicon/android-chrome-192x192.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon/favicon-16x16.png">
+  <link rel="manifest" href="/images/favicon/site.webmanifest">
+  <link rel="mask-icon" href="/images/favicon/safari-pinned-tab.svg" color="#5bbad5">
+  <link rel="shortcut icon" href="/images/favicon/favicon.ico">
   <meta name="msapplication-TileColor" content="#ffffff">
-  <meta name="msapplication-TileImage" content="https://igorlesnevskiy.github.io/kdx/images/images/favicon/mstile-144x144.png">
-  <meta name="msapplication-config" content="https://igorlesnevskiy.github.io/kdx/images/images/favicon/browserconfig.xml">
+  <meta name="msapplication-TileImage" content="/images/images/favicon/mstile-144x144.png">
+  <meta name="msapplication-config" content="/images/images/favicon/browserconfig.xml">
   <meta name="theme-color" content="#ffffff">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -52,10 +52,10 @@
     }
     
   </script>
-  <link rel="stylesheet" href="https://igorlesnevskiy.github.io/kdx/css/vendor.css">
-  <link rel="stylesheet" href="https://igorlesnevskiy.github.io/kdx/css/main.css">
-  <script src="https://igorlesnevskiy.github.io/kdx/js/vendor.bundle.js"></script>
-  <script src="https://igorlesnevskiy.github.io/kdx/js/main.bundle.js"></script>
+  <link rel="stylesheet" href="/css/vendor.css">
+  <link rel="stylesheet" href="/css/main.css">
+  <script src="/js/vendor.bundle.js"></script>
+  <script src="/js/main.bundle.js"></script>
 </head>
 <body>
   <div class="l-page-wrapper">
@@ -64,7 +64,7 @@
         <div class="l-page__header">
           <div class="b-header">
             <div class="b-header__inner">
-              <div class="b-header__logo"><a class="b-header__logo-link" href="https://igorlesnevskiy.github.io/kdx/"><img src="https://igorlesnevskiy.github.io/kdx/images/decor/logo.png" alt="Captain Quack logo"></a></div>
+              <div class="b-header__logo"><a class="b-header__logo-link" href="/"><img src="/images/decor/logo.png" alt="Captain Quack logo"></a></div>
             </div>
           </div>
         </div>
@@ -183,21 +183,21 @@
             <div class="b-form">
               <form class="b-form__form" method="POST" action="#">
                 <div class="b-form__line row middle">
-                  <div class="col-4">
+                  <div class="col-4 col-sm-12">
                     <div class="b-form__field-wrapper b-form__field-wrapper--smart js-smart-label--wrapper">
-                      <input class="b-form__field-input i-input i-input--full-width js-smart-label--input" type="text">
+                      <input class="b-form__field-input i-input i-input--full-width js-smart-label--input" type="text" name="title" data-field-type="title" data-parsley-required="true">
                       <label class="b-form__field-label">Название</label>
                     </div>
                   </div>
-                  <div class="col-4">
+                  <div class="col-4 col-sm-6">
                     <div class="b-form__field-wrapper b-form__field-wrapper--smart js-smart-label--wrapper">
-                      <input class="b-form__field-input i-input i-input--full-width js-smart-label--input" type="text">
+                      <input class="b-form__field-input i-input i-input--full-width js-smart-label--input" type="text" name="year" data-field-type="year" data-parsley-required="true" data-parsley-type="digits">
                       <label class="b-form__field-label">Год</label>
                     </div>
                   </div>
-                  <div class="col-4">
+                  <div class="col-4 col-sm-6">
                     <div class="b-form__field-wrapper b-form__field-wrapper--smart js-smart-label--wrapper">
-                      <input class="b-form__field-input i-input i-input--full-width js-smart-label--input" type="text">
+                      <input class="b-form__field-input i-input i-input--full-width js-smart-label--input" type="text" name="price" data-field-type="price" data-parsley-required="true">
                       <label class="b-form__field-label">Цена</label>
                     </div>
                   </div>
@@ -205,47 +205,54 @@
                 <div class="b-form__line row middle">
                   <div class="col-12">
                     <div class="b-form__field-wrapper b-form__field-wrapper--smart js-smart-label--wrapper">
-                      <input class="b-form__field-input i-input i-input--full-width js-smart-label--input" type="text">
+                      <input class="b-form__field-input i-input i-input--full-width js-smart-label--input" type="text" name="description" data-field-type="description">
                       <label class="b-form__field-label">Описание</label>
                     </div>
                   </div>
                 </div>
                 <div class="b-form__line row middle">
-                  <div class="col-4">
+                  <div class="col-4 col-sm-12">
                     <div class="b-form__field-wrapper">
                       <div class="b-form__field b-form__field--radio-group">
                         <div class="b-radio-button b-radio-button--color-picker">
-                          <input class="b-radio-button__input e-radio" type="radio" name="color" value="color-0" id="colorPicker0" checked>
-                          <label class="b-radio-button__label" for="colorPicker0"><span class="b-radio-button__color-box" style="background-color:#fff"></span></label>
+                          <input class="b-radio-button__input e-radio" type="radio" name="color" data-field-type="color" value="white" id="colorPicker0" checked>
+                          <label class="b-radio-button__label" for="colorPicker0"><span class="b-radio-button__color-box" style="background-color:white"></span></label>
                         </div>
                         <div class="b-radio-button b-radio-button--color-picker">
-                          <input class="b-radio-button__input e-radio" type="radio" name="color" value="color-1" id="colorPicker1">
-                          <label class="b-radio-button__label" for="colorPicker1"><span class="b-radio-button__color-box" style="background-color:#000"></span></label>
+                          <input class="b-radio-button__input e-radio" type="radio" name="color" data-field-type="color" value="black" id="colorPicker1">
+                          <label class="b-radio-button__label" for="colorPicker1"><span class="b-radio-button__color-box" style="background-color:black"></span></label>
                         </div>
                         <div class="b-radio-button b-radio-button--color-picker">
-                          <input class="b-radio-button__input e-radio" type="radio" name="color" value="color-2" id="colorPicker2">
-                          <label class="b-radio-button__label" for="colorPicker2"><span class="b-radio-button__color-box" style="background-color:#cbcbcc"></span></label>
+                          <input class="b-radio-button__input e-radio" type="radio" name="color" data-field-type="color" value="gray" id="colorPicker2">
+                          <label class="b-radio-button__label" for="colorPicker2"><span class="b-radio-button__color-box" style="background-color:gray"></span></label>
                         </div>
                         <div class="b-radio-button b-radio-button--color-picker">
-                          <input class="b-radio-button__input e-radio" type="radio" name="color" value="color-3" id="colorPicker3">
-                          <label class="b-radio-button__label" for="colorPicker3"><span class="b-radio-button__color-box" style="background-color:#d74345"></span></label>
+                          <input class="b-radio-button__input e-radio" type="radio" name="color" data-field-type="color" value="pink" id="colorPicker3">
+                          <label class="b-radio-button__label" for="colorPicker3"><span class="b-radio-button__color-box" style="background-color:pink"></span></label>
                         </div>
                         <div class="b-radio-button b-radio-button--color-picker">
-                          <input class="b-radio-button__input e-radio" type="radio" name="color" value="color-4" id="colorPicker4">
-                          <label class="b-radio-button__label" for="colorPicker4"><span class="b-radio-button__color-box" style="background-color:#88c504"></span></label>
+                          <input class="b-radio-button__input e-radio" type="radio" name="color" data-field-type="color" value="lime" id="colorPicker4">
+                          <label class="b-radio-button__label" for="colorPicker4"><span class="b-radio-button__color-box" style="background-color:lime"></span></label>
                         </div>
                       </div>
                       <label class="b-form__field-label">Цвет</label>
                     </div>
                   </div>
-                  <div class="col-4">
+                  <div class="col-4 col-sm-6">
                     <div class="b-form__field-wrapper">
                       <div class="b-form__field b-form__field--select">
-                        <div class="b-select">1</div>
+                        <div class="b-select b-select--full-width">
+                          <select data-is-custom-select data-placeholder="Статус" data-width="100%" data-theme="autoparts" data-minimum-results-for-search="-1" data-field-type="status">
+                            <option></option>
+                            <option value="in_stock">В наличии</option>
+                            <option value="pending">Ожидается</option>
+                            <option value="out_of_stock">Нет в наличии</option>
+                          </select>
+                        </div>
                       </div>
                     </div>
                   </div>
-                  <div class="col-4">
+                  <div class="col-4 col-sm-6">
                     <div class="b-form__field-wrapper">
                       <button class="i-button i-button--full-width" type="submit">Отправить<i class="webfont-icon webfont-icon--arrow--right"></i></button>
                     </div>
@@ -266,10 +273,10 @@
                 </div>
               </div>
               <div class="b-custom-table__body">
-                <div class="b-custom-table__row">
+                <div class="b-custom-table__row" data-row-id="1">
                   <div class="b-custom-table__cell b-custom-table__cell--title">
-                    <div class="main-text">1.6 MT Ambiente 85 л.с. МКПП</div>
-                    <div class="extra-text">+ доп. опция «Радио-навигационная система Amundasen 2DIN, CD, MP3</div>
+                    <div class="title">1.6 MT Ambiente 85 л.с. МКПП</div>
+                    <div class="description">+ доп. опция «Радио-навигационная система Amundasen 2DIN, CD, MP3</div>
                   </div>
                   <div class="b-custom-table__cell b-custom-table__cell--year">2012</div>
                   <div class="b-custom-table__cell b-custom-table__cell--color">
@@ -277,24 +284,28 @@
                   </div>
                   <div class="b-custom-table__cell b-custom-table__cell--status">Ожидается</div>
                   <div class="b-custom-table__cell b-custom-table__cell--price">
-                    <nobr>1 689 000 руб</nobr>
+                    <nobr class="price js-price" data-original-price="1689000">1 689 000 руб</nobr>
+                    <nobr class="price-with-tax js-price-with-tax" data-original-price="1908570">1 908 570 руб (+13%)</nobr>
                   </div>
                   <div class="b-custom-table__cell b-custom-table__cell--action">
-                    <button class="i-button i-button--ellipse i-button--size-small">Удалить</button>
+                    <button class="i-button i-button--ellipse i-button--size-smalli-button js-delete-trigger">Удалить</button>
                   </div>
                 </div>
-                <div class="b-custom-table__row">
-                  <div class="b-custom-table__cell b-custom-table__cell--title">1.6 MT Ambiente 85 л.с. МКПП</div>
+                <div class="b-custom-table__row" data-row-id="2">
+                  <div class="b-custom-table__cell b-custom-table__cell--title">
+                    <div class="title">1.6 MT Ambiente 85 л.с. МКПП</div>
+                  </div>
                   <div class="b-custom-table__cell b-custom-table__cell--year">2012</div>
                   <div class="b-custom-table__cell b-custom-table__cell--color">
-                    <div class="i-color-box" style="background-color: #000"></div>
+                    <div class="i-color-box" style="background-color: #fff"></div>
                   </div>
                   <div class="b-custom-table__cell b-custom-table__cell--status">Ожидается</div>
                   <div class="b-custom-table__cell b-custom-table__cell--price">
-                    <nobr>1 689 000 руб</nobr>
+                    <nobr class="price js-price" data-original-price="1689000">1 689 000 руб</nobr>
+                    <nobr class="price-with-tax js-price-with-tax" data-original-price="1908570">1 908 570 руб (+13%)</nobr>
                   </div>
                   <div class="b-custom-table__cell b-custom-table__cell--action">
-                    <button class="i-button i-button--ellipse i-button--size-small">Удалить</button>
+                    <button class="i-button i-button--ellipse i-button--size-smalli-button js-delete-trigger">Удалить</button>
                   </div>
                 </div>
               </div>

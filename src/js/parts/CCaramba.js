@@ -143,8 +143,13 @@ class CCarambaController {
 				for (let field in form.fields) {
 					if (form.fields.hasOwnProperty(field)) {
 						let fieldName = form.fields[field].$element.attr('data-field-type');
+						let value = form.fields[field].getValue();
 
-						data[fieldName] = form.fields[field].getValue();
+						if (fieldName == 'price') {
+							data[fieldName] = value.replace(/\s/, '').replace(/,/,'.');
+						} else {
+							data[fieldName] = value;
+						}
 					}
 				}
 
@@ -223,6 +228,7 @@ class CCarambaController {
 
 	/**
 	 * Подгрузка данный с удаленного источника
+	 * Баг в IE10 и IE11 на Windows 7 и Windows 8.1 http://take.ms/zBF8j
 	 * @returns {Promise.<TResult>}
 	 */
 	loadData() {
@@ -305,10 +311,10 @@ class CCarambaController {
 							}
 
 							if (fieldName == 'price') {
-								let price = value;
-								let priceWithTax = CTools.getPriceWithTax(value, this.tax);
-								let formattedPrice = CTools.formatMoney(value, this.locale);
-								let formattedPriceWithTax = CTools.formatMoney(CTools.getPriceWithTax(value, this.tax), this.locale);
+								let price = typeof value == 'string' ? value.replace(/\s/, '').replace(/,/,'.') : value;
+								let priceWithTax = CTools.getPriceWithTax(price, this.tax, 2);
+								let formattedPrice = CTools.formatMoney(price, this.locale);
+								let formattedPriceWithTax = CTools.formatMoney(priceWithTax, this.locale);
 
 								rowMarkup = rowMarkup.replace(/{{price}}/g, price);
 								rowMarkup = rowMarkup.replace(/{{formattedPrice}}/g, `${formattedPrice} ${this.getText('currency')}`);

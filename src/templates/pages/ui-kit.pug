@@ -108,44 +108,77 @@ block content
     div.b-form
         form.b-form__form(method="POST" action="#")
             div.b-form__line.row.middle
-                div.col-4
+                div.col-4.col-sm-12
                     div.b-form__field-wrapper.b-form__field-wrapper--smart.js-smart-label--wrapper
-                        input.b-form__field-input.i-input.i-input--full-width.js-smart-label--input(type="text")
+                        input.b-form__field-input.i-input.i-input--full-width.js-smart-label--input(
+                            type="text"
+                            name="title"
+                            data-field-type="title"
+                            data-parsley-required="true"
+                        )
                         label.b-form__field-label Название
-                div.col-4
+                div.col-4.col-sm-6
                     div.b-form__field-wrapper.b-form__field-wrapper--smart.js-smart-label--wrapper
-                        input.b-form__field-input.i-input.i-input--full-width.js-smart-label--input(type="text")
+                        input.b-form__field-input.i-input.i-input--full-width.js-smart-label--input(
+                            type="text"
+                            name="year"
+                            data-field-type="year"
+                            data-parsley-required="true"
+                            data-parsley-type="digits"
+                        )
                         label.b-form__field-label Год
-                div.col-4
+                div.col-4.col-sm-6
                     div.b-form__field-wrapper.b-form__field-wrapper--smart.js-smart-label--wrapper
-                        input.b-form__field-input.i-input.i-input--full-width.js-smart-label--input(type="text")
+                        input.b-form__field-input.i-input.i-input--full-width.js-smart-label--input(
+                            type="text"
+                            name="price"
+                            data-field-type="price"
+                            data-parsley-required="true"
+                        )
                         label.b-form__field-label Цена
             div.b-form__line.row.middle
                 div.col-12
                     div.b-form__field-wrapper.b-form__field-wrapper--smart.js-smart-label--wrapper
-                        input.b-form__field-input.i-input.i-input--full-width.js-smart-label--input(type="text")
+                        input.b-form__field-input.i-input.i-input--full-width.js-smart-label--input(
+                            type="text"
+                            name="description"
+                            data-field-type="description"
+                        )
                         label.b-form__field-label Описание
             div.b-form__line.row.middle
-                div.col-4
+                div.col-4.col-sm-12
                     div.b-form__field-wrapper
                         div.b-form__field.b-form__field--radio-group
-                            each color, index in ['#fff', '#000', '#cbcbcc', '#d74345', '#88c504']
+                            each color, index in ['white', 'black', 'gray', 'pink', 'lime']
                                 div.b-radio-button.b-radio-button--color-picker
                                     input.b-radio-button__input.e-radio(
                                         type="radio"
                                         name="color"
-                                        value= "color-" + index
+                                        data-field-type="color"
+                                        value= color
                                         id="colorPicker" + index
                                         checked = index == 0
                                     )
                                     label.b-radio-button__label(for="colorPicker" + index)
                                         span.b-radio-button__color-box(style="background-color:" + color)
                         label.b-form__field-label Цвет
-                div.col-4
+                div.col-4.col-sm-6
                     div.b-form__field-wrapper
                         div.b-form__field.b-form__field--select
-                            div.b-select 1
-                div.col-4
+                            div.b-select.b-select--full-width
+                                select(
+                                    data-is-custom-select = true
+                                    data-placeholder = "Статус"
+                                    data-width = "100%"
+                                    data-theme = "autoparts"
+                                    data-minimum-results-for-search = "-1"
+                                    data-field-type = "status"
+                                )
+                                    option
+                                    option(value="in_stock") В наличии
+                                    option(value="pending") Ожидается
+                                    option(value="out_of_stock") Нет в наличии
+                div.col-4.col-sm-6
                     div.b-form__field-wrapper
                         button.i-button.i-button--full-width(type="submit") Отправить
                             i.webfont-icon.webfont-icon--arrow--right
@@ -162,27 +195,30 @@ block content
                 div.b-custom-table__cell.b-custom-table__cell--price Цена
                 div.b-custom-table__cell.b-custom-table__cell--action
         div.b-custom-table__body
-            div.b-custom-table__row
+            div.b-custom-table__row(data-row-id="1")
                 div.b-custom-table__cell.b-custom-table__cell--title
-                    div.main-text 1.6 MT Ambiente 85 л.с. МКПП
-                    div.extra-text + доп. опция «Радио-навигационная система Amundasen 2DIN, CD, MP3
+                    div.title 1.6 MT Ambiente 85 л.с. МКПП
+                    div.description + доп. опция «Радио-навигационная система Amundasen 2DIN, CD, MP3
                 div.b-custom-table__cell.b-custom-table__cell--year 2012
                 div.b-custom-table__cell.b-custom-table__cell--color
                     div.i-color-box(style="background-color: #fff")
                 div.b-custom-table__cell.b-custom-table__cell--status Ожидается
                 div.b-custom-table__cell.b-custom-table__cell--price
-                    nobr 1 689 000 руб
+                    nobr.price.js-price(data-original-price="1689000") 1 689 000 руб
+                    nobr.price-with-tax.js-price-with-tax(data-original-price="1908570") 1 908 570 руб (+13%)
                 div.b-custom-table__cell.b-custom-table__cell--action
-                    button.i-button.i-button--ellipse.i-button--size-small Удалить
-            div.b-custom-table__row
-                div.b-custom-table__cell.b-custom-table__cell--title 1.6 MT Ambiente 85 л.с. МКПП
+                    button.i-button.i-button--ellipse.i-button--size-smalli-button.js-delete-trigger Удалить
+            div.b-custom-table__row(data-row-id="2")
+                div.b-custom-table__cell.b-custom-table__cell--title
+                    div.title 1.6 MT Ambiente 85 л.с. МКПП
                 div.b-custom-table__cell.b-custom-table__cell--year 2012
                 div.b-custom-table__cell.b-custom-table__cell--color
-                    div.i-color-box(style="background-color: #000")
+                    div.i-color-box(style="background-color: #fff")
                 div.b-custom-table__cell.b-custom-table__cell--status Ожидается
                 div.b-custom-table__cell.b-custom-table__cell--price
-                    nobr 1 689 000 руб
+                    nobr.price.js-price(data-original-price="1689000") 1 689 000 руб
+                    nobr.price-with-tax.js-price-with-tax(data-original-price="1908570") 1 908 570 руб (+13%)
                 div.b-custom-table__cell.b-custom-table__cell--action
-                    button.i-button.i-button--ellipse.i-button--size-small Удалить
+                    button.i-button.i-button--ellipse.i-button--size-smalli-button.js-delete-trigger Удалить
         div.b-custom-table__footer
 

@@ -4644,6 +4644,12 @@ jquery-mask-plugin@^1.14.15:
   version "1.14.15"
   resolved "https://registry.yarnpkg.com/jquery-mask-plugin/-/jquery-mask-plugin-1.14.15.tgz#9daabb41024383cba2a793bacfa46ef8f87273a5"
 
+"jquery-maskmoney@https://github.com/darylteo/jquery-maskmoney.git#allow-no-decimal":
+  version "3.0.2"
+  resolved "https://github.com/darylteo/jquery-maskmoney.git#10a7eda2f1058f98292786ef595de883b0189e76"
+  dependencies:
+    jquery ">=1.6"
+
 jquery-mousewheel@~3.1.13:
   version "3.1.13"
   resolved "https://registry.yarnpkg.com/jquery-mousewheel/-/jquery-mousewheel-3.1.13.tgz#06f0335f16e353a695e7206bf50503cb523a6ee5"
@@ -4652,7 +4658,7 @@ jquery.maskedinput@^1.4.1:
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/jquery.maskedinput/-/jquery.maskedinput-1.4.1.tgz#3ea8f4cdc4eafce7354c27b66a73d0f44defc327"
 
-jquery@>=1.8.0, jquery@^2.0.0:
+jquery@>=1.6, jquery@>=1.8.0, jquery@^2.0.0:
   version "2.2.4"
   resolved "https://registry.yarnpkg.com/jquery/-/jquery-2.2.4.tgz#2c89d6889b5eac522a7eea32c14521559c6cbf02"
 

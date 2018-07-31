@@ -23,9 +23,12 @@ block content
                             input.b-form__field-input.i-input.i-input--full-width.js-smart-label--input(
                                 type="text"
                                 name="year"
+                                data-year-mask="true"
                                 data-field-type="year"
+                                data-parsley-max-length="8"
                                 data-parsley-required="true"
                                 data-parsley-type="digits"
+                                data-parsley-production-year="true"
                             )
                             label.b-form__field-label Год
                     div.col-4.col-sm-6
@@ -33,6 +36,8 @@ block content
                             input.b-form__field-input.i-input.i-input--full-width.js-smart-label--input(
                                 type="text"
                                 name="price"
+                                data-money-mask="true"
+                                id="test"
                                 data-field-type="price"
                                 data-parsley-required="true"
                             )

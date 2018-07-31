@@ -24,8 +24,8 @@ $icon_font_name:"<%= fontName %>";
 
 .webfont-icon {
 	font-family: $icon_font_name;
-	display: inline-block;
-	vertical-align: middle;
+	display: inline-flex;
+	align-items: center;
 	font-style: normal;
 	speak: none;
 	color: currentColor;

@@ -27,6 +27,8 @@ class CAppController {
 
 				this.initSmartLabels();
 				this.initCustomSelects();
+				this.initMasks();
+				this.initCustomFormValidators();
 
 				this.cCarambaController.init();
 			});
@@ -56,6 +58,42 @@ class CAppController {
 		if ($selects.length) {
 			$selects.select2({
 
+			});
+		}
+	}
+
+	/**
+	 * Кастомные типы валидаций
+	 */
+	initCustomFormValidators() {
+		window.Parsley.addValidator('productionYear', {
+			validateString: function(value) {
+				return Number(value) >= 1980 && Number(value) <= new Date().getFullYear();
+			},
+			messages: {
+				ru: `Год может быть задан от 1980 до ${new Date().getFullYear()}`
+			}
+		});
+
+	}
+
+	/**
+	 * Маски
+	 */
+	initMasks() {
+		let $yearMask = $('[data-year-mask]');
+		let $moneyMask = $('[data-money-mask]');
+
+		if ($yearMask.length) {
+			$yearMask.mask("9999");
+		}
+
+		if ($moneyMask.length) {
+			//ru
+			$moneyMask.maskMoney({
+				thousands: ' ',
+				decimal: '.',
+				allowNoDecimal: true
 			});
 		}
 	}
