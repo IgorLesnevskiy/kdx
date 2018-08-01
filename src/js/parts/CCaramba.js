@@ -120,6 +120,7 @@ class CCarambaController {
 				})
 				.catch((msg) => {
 					//TODO обработка ошибок
+					this.unlockTable();
 					this.showTableNotification(this.getText('error--load_error'));
 				});
 		}
@@ -242,7 +243,8 @@ class CCarambaController {
 				},
 				error: (jqXHR, textStatus, error) => {
 					reject();
-				}
+				},
+				cache: false
 			});
 		})
 			.then((data) => {
