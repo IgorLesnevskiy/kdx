@@ -251,7 +251,7 @@ class CCarambaController {
 				let localData = this.getAllRowsFromLocalStorage();
 
 				if (localData) {
-					return Object.assign({}, localData, data);
+					return $.extend({}, localData, data);
 				} else {
 					return data;
 				}
