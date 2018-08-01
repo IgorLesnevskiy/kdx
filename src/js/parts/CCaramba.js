@@ -63,7 +63,7 @@ class CCarambaController {
 				  <div class="b-custom-table__cell b-custom-table__cell--status">{{status}}</div>
 				  <div class="b-custom-table__cell b-custom-table__cell--price">
 				    <nobr class="price js-price" data-original-price="{{price}}">{{formattedPrice}}</nobr>
-				    <nobr class="price-with-tax js-price-with-tax" data-original-price-with-tax="{{priceWithTax}}">{{formattedPriceWithTax}} (+13%)</nobr>
+				    <nobr class="price-with-tax js-price-with-tax" data-original-price-with-tax="{{priceWithTax}}">{{formattedPriceWithTax}}</nobr>
 				  </div>
 				  <div class="b-custom-table__cell b-custom-table__cell--action">
 				    <button class="i-button i-button--ellipse i-button--size-small js-delete-trigger">{{removeButtonText}}</button>
@@ -292,8 +292,12 @@ class CCarambaController {
 							 * Цвета вывожу прямо в виде текста, но по-хорошему нужно отдавать хэш через API
 							 */
 							if (fieldName == 'color') {
-								rowMarkup = rowMarkup.replace(/{{optionalColorbox}}/g, this.markupTemplate.optional.colorBox);
-								rowMarkup = rowMarkup.replace(/{{colorCode}}/g, value);
+								if (value) {
+									rowMarkup = rowMarkup.replace(/{{optionalColorbox}}/g, this.markupTemplate.optional.colorBox);
+									rowMarkup = rowMarkup.replace(/{{colorCode}}/g, value);
+								} else {
+									rowMarkup = rowMarkup.replace(/{{optionalColorbox}}/g, '')
+								}
 							}
 
 							if (fieldName == 'year') {
@@ -325,8 +329,6 @@ class CCarambaController {
 					}
 
 					rowMarkup = rowMarkup
-						.replace(/{{optionalDescription}}/g, '')
-						.replace(/{{optionalColorbox}}/g, '')
 						.replace(/{{removeButtonText}}/g, this.getText('remove_button_text'));
 
 					resultMarkup.push(rowMarkup);
