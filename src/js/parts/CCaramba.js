@@ -296,7 +296,7 @@ class CCarambaController {
 									rowMarkup = rowMarkup.replace(/{{optionalColorbox}}/g, this.markupTemplate.optional.colorBox);
 									rowMarkup = rowMarkup.replace(/{{colorCode}}/g, value);
 								} else {
-									rowMarkup = rowMarkup.replace(/{{optionalColorbox}}/g, '')
+									rowMarkup = rowMarkup.replace(/{{optionalColorbox}}/g, '');
 								}
 							}
 
